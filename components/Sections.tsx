@@ -860,15 +860,24 @@ export function SkillsSection() {
 export function ExperienceSection() {
   const experiences = [
     {
-      role: 'Video Editing & Marketing Officer',
+      role: 'Video Editor',
       company: 'My Impact Meter',
       period: '2023 – Present',
       isCurrent: true,
       points: [
         'Edited and produced high-quality videos for digital platforms.',
         'Managed social media accounts to enhance brand visibility.',
+        'Optimized content for SEO and social media performance.'
+      ]
+    },
+    {
+      role: 'Marketing Officer',
+      company: 'My Impact Meter',
+      period: '2022 – 2023',
+      isCurrent: false,
+      points: [
         'Developed and executed marketing strategies to drive engagement.',
-        'Optimized content for SEO and social media performance.',
+        'Managed social media accounts to enhance brand visibility.',
         'Ran and managed Google Ads campaigns for targeted reach.'
       ]
     },
