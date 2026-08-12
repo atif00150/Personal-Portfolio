@@ -375,7 +375,7 @@ export function ProjectsSection() {
             Featured Work
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
-            Selected Projects
+            Projects
           </h2>
         </div>
 
