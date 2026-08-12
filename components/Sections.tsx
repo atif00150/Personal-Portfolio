@@ -23,7 +23,11 @@ import {
   Zap,
   Lock,
   X,
-  ExternalLink
+  ExternalLink,
+  Key,
+  Shield,
+  MapPin,
+  Clock
 } from 'lucide-react';
 
 /* ==================== TECHNOLOGIES SECTION (Placed above About) ==================== */
@@ -385,13 +389,34 @@ export function ProjectsSection() {
       }
     },
     {
-      id: 'ecommerce',
-      title: 'E-Commerce Cloud Engine',
-      subtitle: 'Microservices Retail Infrastructure',
-      description: 'Scalable multi-tenant e-commerce platform built with microservices architecture, real-time Redis caching, and automated inventory sync.',
-      tags: ['React', 'Node.js', 'PostgreSQL', 'Redis', 'Docker', 'AWS'],
-      icon: <Globe className="w-6 h-6 text-emerald-600" />,
-      caseStudy: null
+      id: 'lockmaster',
+      title: 'LOCK MASTER — Professional Locksmith & Security Platform',
+      subtitle: 'Emergency Locksmith & Security Dispatch System',
+      description: 'Modern 24/7 security service platform built with React 19, Vite, Tailwind CSS v4, Remix Icons, and React Router v7. Features real-time emergency appointment scheduling, interactive service area coverage mapping, and rapid dispatch hubs.',
+      tags: ['React 19', 'Vite HMR', 'Tailwind CSS v4', 'React Router v7', 'Remix Icons', 'Dispatch System', 'Appointment Engine', 'Security Services'],
+      icon: <Key className="w-6 h-6 text-emerald-600" />,
+      caseStudy: {
+        title: 'LOCK MASTER Security & Locksmith Platform Case Study',
+        architecture: 'React 19 + Vite HMR SPA with Modular Component Architecture',
+        summary: 'LOCK MASTER is a high-availability emergency locksmith and security dispatch platform. It bridges home and commercial security needs with rapid 24/7 appointment scheduling, dynamic regional coverage mapping, and transparent service pricing.',
+        highlights: [
+          'Emergency Appointment Booking Engine: Interactive appointment system with real-time form validation and automated dispatch queuing.',
+          'Dynamic Regional Coverage Map: Coverage mapping displaying locksmith technician availability across residential, commercial, and automotive zones.',
+          'Comprehensive Service Catalog: Specialized modules for residential rekeying, commercial master keying, automotive transponders, and electronic safe opening.',
+          'Customer Trust & Review Engine: Verified client feedback platform with rating analytics and emergency satisfaction scores.',
+          'Rapid Dispatch Emergency Hub: Dedicated 24/7 hotline integration with mobile-optimized emergency click-to-call functionality.'
+        ],
+        techStack: {
+          backend: ['Node.js API Services', 'JSON Schema Validation', 'RESTful Booking Endpoints', 'Client Storage Caching'],
+          frontend: ['React 19 Single Page Application', 'Vite HMR Build System', 'Tailwind CSS v4 Engine', 'React Router v7 Navigation', 'Remix Icons']
+        },
+        endpoints: [
+          { method: 'POST', path: '/api/v1/appointments', desc: 'Schedules emergency lockout service & dispatches mobile unit' },
+          { method: 'GET', path: '/api/v1/services/area', desc: 'Queries active technician coverage zones by zipcode' },
+          { method: 'GET', path: '/api/v1/services/catalog', desc: 'Returns locksmith pricing & service package options' },
+          { method: 'POST', path: '/api/v1/reviews', desc: 'Submits customer review & security service rating' }
+        ]
+      }
     },
     {
       id: 'analytics',
@@ -589,7 +614,7 @@ export function ProjectsSection() {
             {/* Modal Footer */}
             <div className="p-4 px-6 bg-white border-t border-black/5 flex items-center justify-between shrink-0">
               <span className="text-xs font-mono text-gray-500">
-                Path: C:\Users\Atif Mughal\Downloads\Codentra portal final
+                Path: {activeModal.id === 'codentraa' ? 'C:\\Users\\Atif Mughal\\Downloads\\Codentra portal final' : activeModal.id === 'lockmaster' ? 'C:\\Users\\Atif Mughal\\Downloads\\lock_master-main' : 'Local Project Workspace'}
               </span>
               <button 
                 onClick={() => setActiveModal(null)}
