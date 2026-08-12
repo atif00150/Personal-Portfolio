@@ -27,7 +27,13 @@ import {
   Key,
   Shield,
   MapPin,
-  Clock
+  Clock,
+  Mail,
+  Github,
+  Linkedin,
+  MessageSquare,
+  Calendar,
+  Sparkles
 } from 'lucide-react';
 
 /* ==================== TECHNOLOGIES SECTION (Placed above About) ==================== */
@@ -150,7 +156,7 @@ export function TechStackSection() {
 /* ==================== ABOUT SECTION ==================== */
 export function AboutSection() {
   return (
-    <section id="about" className="py-14 md:py-20 font-lato overflow-hidden">
+    <section id="about" className="py-14 md:py-20 font-lato overflow-x-hidden">
       {/* Balanced Wide Container */}
       <div className="max-w-[1380px] mx-auto px-4 sm:px-8 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
@@ -163,19 +169,19 @@ export function AboutSection() {
               <span className="w-2 h-2 rounded-full bg-emerald-600"></span>
               ABOUT ME
             </div>
-
+ 
             {/* 2. Bold Punchy Headline */}
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 tracking-tight leading-[1.18]">
               I turn ideas into<br />
               <span className="text-emerald-600">digital </span>
               <span className="text-terracotta">products.</span>
             </h2>
-
+ 
             {/* 3. Bio Paragraph */}
             <p className="text-base sm:text-lg text-gray-600 leading-relaxed max-w-2xl font-lato">
               I'm a Software Engineer focused on building modern web applications, AI-powered tools, and scalable digital products. I enjoy solving real problems and turning concepts into reliable, user-friendly solutions.
             </p>
-
+ 
             {/* 4. 4 Feature Grid Cards */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-2">
               
@@ -195,7 +201,7 @@ export function AboutSection() {
                   Building fast and scalable web applications.
                 </p>
               </div>
-
+ 
               {/* Card 2: AI Tools */}
               <div className="p-4 rounded-3xl bg-white border border-black/5 shadow-[0_10px_25px_rgba(0,0,0,0.03)] hover:shadow-md transition-shadow">
                 <div className="w-10 h-10 rounded-2xl bg-[#fef2eb] text-terracotta flex items-center justify-center mb-3">
@@ -209,7 +215,7 @@ export function AboutSection() {
                   Creating intelligent AI-powered tools and automations.
                 </p>
               </div>
-
+ 
               {/* Card 3: SaaS */}
               <div className="p-4 rounded-3xl bg-white border border-black/5 shadow-[0_10px_25px_rgba(0,0,0,0.03)] hover:shadow-md transition-shadow">
                 <div className="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-3">
@@ -222,7 +228,7 @@ export function AboutSection() {
                   Developing SaaS products that solve real problems.
                 </p>
               </div>
-
+ 
               {/* Card 4: APIs */}
               <div className="p-4 rounded-3xl bg-white border border-black/5 shadow-[0_10px_25px_rgba(0,0,0,0.03)] hover:shadow-md transition-shadow">
                 <div className="w-10 h-10 rounded-2xl bg-[#fef2eb] text-terracotta flex items-center justify-center mb-3">
@@ -235,11 +241,11 @@ export function AboutSection() {
                   Designing robust and clean APIs for integrations.
                 </p>
               </div>
-
+ 
             </div>
-
+ 
           </div>
-
+ 
           {/* RIGHT SIDE: Developer Code Terminal (developer.ts) + Floating Skill Pills */}
           <div className="lg:col-span-5 relative flex items-center justify-center pt-4 lg:pt-0">
 
@@ -505,6 +511,19 @@ export function ProjectsSection() {
             </div>
           ))}
         </div>
+        {/* Centered refined CTA to GitHub */}
+        <div className="mt-12 text-center">
+          <a
+            href="https://github.com/atif00150"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-gray-400/30 bg-white hover:border-terracotta hover:bg-terracotta/5 transition-all text-xs sm:text-sm font-black uppercase tracking-wider text-gray-800 hover:text-terracotta shadow-xs"
+          >
+            <Github className="w-4.5 h-4.5" />
+            For more projects, visit my GitHub
+            <ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
       </div>
 
       {/* Case Study Full Modal Overlay */}
@@ -628,6 +647,46 @@ export function ProjectsSection() {
                   </table>
                 </div>
               </div>
+              {/* Section 5: Figma & Web Design Showcase (Only for Lock Master) */}
+              {activeModal.id === 'lockmaster' && (
+                <div className="space-y-4 pt-4 border-t border-gray-100">
+                  <h4 className="text-sm font-black uppercase text-gray-900 tracking-wider flex items-center gap-2">
+                    <Globe className="w-4 h-4 text-emerald-600" /> Figma & Web Design Showcase
+                  </h4>
+                  <p className="text-xs text-gray-500 font-medium leading-normal -mt-2">
+                    Visual interfaces and high-fidelity screen layouts designed for the Lock Master security and locksmith platform.
+                  </p>
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {[
+                      { src: '/projects/lockmaster/1.png', label: '1. Landing Hero Area' },
+                      { src: '/projects/lockmaster/2.png', label: '2. Resolution Stats & Banner' },
+                      { src: '/projects/lockmaster/3.png', label: '3. Locksmith Services Grid' },
+                      { src: '/projects/lockmaster/4.png', label: '4. Why Choose Us Section' },
+                      { src: '/projects/lockmaster/5.png', label: '5. Contact Form & Footer' }
+                    ].map((img, imgIdx) => (
+                      <div 
+                        key={imgIdx} 
+                        className={`group relative overflow-hidden rounded-2xl border border-black/10 bg-white p-2 shadow-xs transition-all duration-300 hover:shadow-md hover:border-terracotta/30 ${
+                          imgIdx === 0 ? 'sm:col-span-2' : ''
+                        }`}
+                      >
+                        <div className="overflow-hidden rounded-xl bg-gray-50">
+                          <img 
+                            src={img.src} 
+                            alt={img.label} 
+                            className="w-full h-auto object-cover transform transition-transform duration-500 group-hover:scale-[1.03]"
+                          />
+                        </div>
+                        <div className="mt-2 px-1 flex items-center justify-between text-xs font-bold text-gray-700">
+                          <span>{img.label}</span>
+                          <span className="text-[10px] text-terracotta font-mono uppercase">Figma Layout</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
             </div>
 
@@ -909,17 +968,23 @@ export function ExperienceSection() {
         </div>
 
         {/* Vertical Timeline Tree Container */}
-        <div className="relative border-l-2 border-gray-400/40 ml-3 sm:ml-6 lg:ml-8 pl-6 sm:pl-10 space-y-10">
+        <div className="relative ml-2 sm:ml-4 lg:ml-6">
           {experiences.map((exp, idx) => (
-            <div key={idx} className="relative group">
+            <div key={idx} className="relative group pl-10 pb-10 last:pb-0">
               
-              {/* Node Circle Dot (Green for Present, Terracotta for Past - Matching Screenshot) */}
-              <div className={`absolute -left-[31px] sm:-left-[47px] top-1.5 w-6 h-6 rounded-full border-2 bg-white flex items-center justify-center transition-transform duration-300 group-hover:scale-125 z-10 ${
-                exp.isCurrent 
-                  ? 'border-emerald-600 shadow-[0_0_12px_rgba(56,161,89,0.5)]' 
-                  : 'border-terracotta shadow-[0_0_10px_rgba(200,90,40,0.4)]'
-              }`}>
-                <div className={`w-2.5 h-2.5 rounded-full ${exp.isCurrent ? 'bg-emerald-600 animate-pulse' : 'bg-terracotta'}`}></div>
+              {/* Line segment ABOVE the circle (for all except first item) */}
+              {idx > 0 && (
+                <div className="absolute left-[11px] top-0 h-1.5 w-[2px] bg-gray-400/40 z-0"></div>
+              )}
+              
+              {/* Line segment BELOW the circle (for all except last item) */}
+              {idx < experiences.length - 1 && (
+                <div className="absolute left-[11px] top-[30px] bottom-0 w-[2px] bg-gray-400/40 z-0"></div>
+              )}
+
+              {/* Node Circle Dot (Uniform Gray by default, activates Terracotta on Hover) */}
+              <div className="absolute left-0 top-1.5 w-6 h-6 rounded-full border-2 bg-[#dae6dd] flex items-center justify-center transition-all duration-300 group-hover:scale-125 z-10 border-gray-400/80 shadow-none group-hover:border-terracotta group-hover:shadow-[0_0_10px_rgba(200,90,40,0.4)]">
+                <div className="w-2.5 h-2.5 rounded-full transition-all duration-300 bg-gray-400/80 group-hover:bg-terracotta"></div>
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-8 items-start">
@@ -965,29 +1030,21 @@ export function ExperienceSection() {
 
 /* ==================== CONTACT SECTION ==================== */
 export function ContactSection() {
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
-  };
-
   return (
-    <section id="contact" className="py-12 md:py-16 border-t border-gray-200/60 bg-black/[0.015]">
+    <section id="contact" className="py-14 md:py-20 border-t border-gray-200/60 bg-black/[0.01]">
       {/* Balanced Wide Container */}
       <div className="max-w-[1380px] mx-auto px-4 sm:px-8 lg:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 font-lato">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 font-lato items-center">
           
           <div className="lg:col-span-5 space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-terracotta/10 text-terracotta text-xs font-bold uppercase tracking-wider">
               Get In Touch
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
-              Let's create something meaningful together.
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight leading-[1.15]">
+              Let's create something <span className="text-terracotta">meaningful</span> together.
             </h2>
             <p className="text-base text-gray-600 leading-relaxed">
-              Have a project in mind, want to collaborate, or just want to say hi? Feel free to drop a message!
+              Have a project in mind, want to collaborate on a video production, or just want to say hi? Feel free to choose any channel to connect!
             </p>
 
             <div className="pt-4 space-y-3">
@@ -995,60 +1052,96 @@ export function ContactSection() {
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
                 Available for freelance projects & full-time roles.
               </div>
-              <div className="text-sm text-gray-500">
-                Email: <a href="mailto:atifmughal00150@gmail.com" className="text-terracotta font-semibold hover:underline">atifmughal00150@gmail.com</a>
-              </div>
             </div>
           </div>
 
-          <div className="lg:col-span-7">
-            <form onSubmit={handleSubmit} className="p-6 sm:p-8 rounded-3xl card-theme bg-white space-y-4">
-              {submitted && (
-                <div className="p-4 rounded-xl bg-emerald-500/10 text-emerald-600 text-sm font-semibold flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5" />
-                  Thank you! Your message has been sent successfully.
-                </div>
-              )}
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1">Your Name</label>
-                  <input 
-                    type="text" 
-                    required 
-                    placeholder="Atif Mughal" 
-                    className="w-full px-4 py-2.5 rounded-xl border border-gray-300 bg-white text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-terracotta"
-                  />
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            
+            {/* Card 1: Direct Email Channel (Full width) */}
+            <div className="sm:col-span-2 p-6 rounded-3xl bg-white border border-black/5 shadow-[0_8px_30px_rgba(0,0,0,0.04)] space-y-4 hover:border-terracotta/20 transition-all duration-300">
+              <div className="flex items-center gap-3">
+                <div className="p-3 rounded-2xl bg-terracotta/10 text-terracotta">
+                  <Mail className="w-6 h-6" />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1">Email Address</label>
-                  <input 
-                    type="email" 
-                    required 
-                    placeholder="you@example.com" 
-                    className="w-full px-4 py-2.5 rounded-xl border border-gray-300 bg-white text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-terracotta"
-                  />
+                  <h3 className="text-lg font-bold text-gray-900 font-lato">Direct Email</h3>
+                  <p className="text-xs text-gray-500 font-medium">Fastest way to get in touch</p>
                 </div>
               </div>
-
-              <div>
-                <label className="block text-xs font-bold text-gray-700 mb-1">Message</label>
-                <textarea 
-                  rows={4} 
-                  required 
-                  placeholder="Tell me about your project..." 
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-300 bg-white text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-terracotta"
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full sm:w-auto px-6 py-3 rounded-full bg-terracotta hover:bg-terracotta-hover text-white text-sm font-semibold inline-flex items-center justify-center gap-2 transition-all shadow-md hover:shadow-lg"
+              <p className="text-sm text-gray-600 font-medium font-mono bg-black/[0.02] p-3 rounded-xl border border-black/5">
+                atifmughal00150@gmail.com
+              </p>
+              <a 
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=atifmughal00150@gmail.com&su=Project%20Inquiry%20%E2%80%94%20Muhammad%20Atif&body=Hi%20Atif%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project.%0A%0ABest%2C"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3 rounded-xl bg-terracotta hover:bg-terracotta-hover text-white text-xs font-black uppercase tracking-widest inline-flex items-center justify-center gap-2 shadow-sm transition-all"
               >
-                Send Message
-                <Send className="w-4 h-4" />
-              </button>
-            </form>
+                Launch Gmail Composer
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+
+            {/* Card 2: Professional Networks */}
+            <div className="p-6 rounded-3xl bg-white border border-black/5 shadow-[0_8px_30px_rgba(0,0,0,0.04)] space-y-4 hover:border-terracotta/20 transition-all duration-300 flex flex-col justify-between">
+              <div className="space-y-2">
+                <div className="flex items-center gap-3">
+                  <div className="p-2.5 rounded-xl bg-emerald-600/10 text-emerald-700">
+                    <Linkedin className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-base font-bold text-gray-900">Social Channels</h3>
+                </div>
+                <p className="text-xs text-gray-500 leading-normal">
+                  Follow my projects, professional updates, and source code archives.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-2 pt-2">
+                <a
+                  href="https://github.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="p-2 rounded-xl bg-black/5 text-gray-700 hover:text-terracotta hover:bg-terracotta/5 transition-all flex items-center gap-1.5 text-xs font-bold font-mono"
+                >
+                  <Github className="w-4 h-4" /> GitHub
+                </a>
+                <a
+                  href="https://linkedin.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="p-2 rounded-xl bg-black/5 text-gray-700 hover:text-terracotta hover:bg-terracotta/5 transition-all flex items-center gap-1.5 text-xs font-bold font-mono"
+                >
+                  <Linkedin className="w-4 h-4" /> LinkedIn
+                </a>
+              </div>
+            </div>
+
+            {/* Card 3: Response Metrics */}
+            <div className="p-6 rounded-3xl bg-white border border-black/5 shadow-[0_8px_30px_rgba(0,0,0,0.04)] space-y-4 hover:border-terracotta/20 transition-all duration-300 flex flex-col justify-between">
+              <div className="space-y-2">
+                <div className="flex items-center gap-3">
+                  <div className="p-2.5 rounded-xl bg-terracotta/10 text-terracotta">
+                    <Sparkles className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-base font-bold text-gray-900">Response Speed</h3>
+                </div>
+                <p className="text-xs text-gray-500 leading-normal">
+                  Always active to discuss new creative possibilities and video projects.
+                </p>
+              </div>
+
+              <div className="space-y-2 pt-2 text-xs font-mono font-bold text-gray-700">
+                <div className="flex items-center justify-between border-b border-gray-100 pb-1.5">
+                  <span className="text-gray-500">Rate:</span>
+                  <span className="text-emerald-700">Available</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-500">Timezone:</span>
+                  <span>GMT+5 (PK)</span>
+                </div>
+              </div>
+            </div>
+
           </div>
 
         </div>

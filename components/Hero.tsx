@@ -6,7 +6,7 @@ import { ArrowUpRight, Download, Code, Puzzle, BarChart3, Github, Linkedin, Twit
 
 export default function Hero() {
   return (
-    <section id="home" className="relative pt-3 md:pt-4 lg:pt-5 pb-4 md:pb-6 lg:pb-8 overflow-hidden">
+    <section id="home" className="relative pt-3 md:pt-4 lg:pt-5 pb-4 md:pb-6 lg:pb-8 overflow-x-hidden">
 
       {/* Balanced Wide Container (1380px Desktop Width, Matching Navbar Boundaries) */}
       <div className="max-w-[1380px] mx-auto px-4 sm:px-8 lg:px-12">
@@ -107,7 +107,9 @@ export default function Hero() {
                     <Twitter className="w-4 h-4" />
                   </a>
                   <a
-                    href="mailto:atifmughal00150@gmail.com"
+                    href="https://mail.google.com/mail/?view=cm&fs=1&to=atifmughal00150@gmail.com&su=Project%20Inquiry%20%E2%80%94%20Muhammad%20Atif&body=Hi%20Atif%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project.%0A%0ABest%2C"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="p-2 rounded-full bg-white border border-black/5 shadow-xs text-gray-700 hover:text-terracotta hover:scale-110 transition-all"
                     aria-label="Email"
                   >
@@ -123,13 +125,13 @@ export default function Hero() {
           <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-end py-2">
             
             {/* Centered Composition Container */}
-            <div className="relative w-full max-w-[520px] sm:max-w-[580px] min-h-[500px] sm:min-h-[560px] flex items-center justify-center">
-              
+            <div className="relative w-full max-w-[520px] sm:max-w-[580px] lg:max-w-[610px] min-h-[500px] sm:min-h-[560px] lg:min-h-[610px] flex items-center justify-center">
+
               {/* 1. Proportioned 3D Orbital System with Vertical Dotted Ring (Behind Profile) */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
                 
-                {/* Main 3D Orbit Container (Reduced to 580px) */}
-                <div className="relative w-[460px] h-[460px] sm:w-[520px] sm:h-[520px] lg:w-[580px] lg:h-[580px] [transform:rotateX(42deg)_rotateY(-8deg)] transition-all">
+                {/* Main 3D Orbit Container (Slightly larger as requested) */}
+                <div className="relative w-[480px] h-[480px] sm:w-[540px] sm:h-[540px] lg:w-[610px] lg:h-[610px] [transform:rotateX(42deg)_rotateY(-8deg)] transition-all">
                   
                   {/* Layer 1: Primary Outer Ring (Compact Green Ring) */}
                   <svg 
@@ -146,10 +148,10 @@ export default function Hero() {
                       strokeOpacity="0.45" 
                     />
                     {/* Orbit Particles */}
-                    <circle cx="115" cy="180" r="5" fill="#38a159" />
-                    <circle cx="385" cy="320" r="5" fill="#c85a28" />
+                    <circle cx="98" cy="98" r="5" fill="#38a159" />
+                    <circle cx="402" cy="402" r="5" fill="#c85a28" />
                   </svg>
-
+ 
                   {/* Layer 2: Secondary Inner Ring (Dashed, Counter-Clockwise, Terracotta Accent) */}
                   <svg 
                     viewBox="0 0 500 500" 
@@ -166,15 +168,15 @@ export default function Hero() {
                       strokeOpacity="0.38" 
                     />
                     {/* Orbit Particles */}
-                    <circle cx="360" cy="140" r="4.5" fill="#38a159" />
-                    <circle cx="140" cy="360" r="4.5" fill="#c85a28" />
+                    <circle cx="374" cy="126" r="4.5" fill="#38a159" />
+                    <circle cx="126" cy="374" r="4.5" fill="#c85a28" />
                   </svg>
-
+ 
                 </div>
-
-                {/* Layer 3: Vertical Dotted Ring Container (Proportioned, Running Vertically Behind Profile) */}
+ 
+                {/* Layer 3: Vertical Dotted Ring Container (Slightly larger as requested) */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="relative w-[430px] h-[430px] sm:w-[490px] sm:h-[490px] lg:w-[540px] lg:h-[540px] [transform:rotateX(72deg)_rotateY(-14deg)] transition-all">
+                  <div className="relative w-[450px] h-[450px] sm:w-[510px] sm:h-[510px] lg:w-[570px] lg:h-[570px] [transform:rotateX(72deg)_rotateY(-14deg)] transition-all">
                     <svg 
                       viewBox="0 0 500 500" 
                       className="absolute inset-0 w-full h-full animate-spin-clockwise"
