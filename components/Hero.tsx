@@ -64,12 +64,8 @@ export default function Hero() {
                 </a>
 
                 <a
-                  href="#"
-                  id="downloadCvBtn"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    alert('Resume download initiated!');
-                  }}
+                  href="/Muhammad Atif SE.pdf"
+                  download="Muhammad_Atif_CV.pdf"
                   className="inline-flex items-center justify-center gap-2 px-6 h-11 rounded-full border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-500/10 font-bold text-sm transition-all shrink-0"
                 >
                   Download CV
@@ -78,10 +74,13 @@ export default function Hero() {
               </div>
 
               {/* Social Links */}
-              <div className="flex items-center gap-3.5 pt-0.5">
-                <span className="text-xs font-extrabold uppercase tracking-wider text-gray-500 shrink-0">
-                  Let's connect
-                </span>
+              <div className="flex flex-wrap items-center gap-3.5 pt-0.5">
+                <a 
+                  href="mailto:atifmughal00150@gmail.com"
+                  className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-terracotta hover:underline shrink-0"
+                >
+                  atifmughal00150@gmail.com
+                </a>
                 <div className="flex items-center gap-2.5">
                   <a
                     href="https://github.com"
@@ -111,7 +110,7 @@ export default function Hero() {
                     <Twitter className="w-4 h-4" />
                   </a>
                   <a
-                    href="mailto:contact@atifmughal.dev"
+                    href="mailto:atifmughal00150@gmail.com"
                     className="p-2 rounded-full bg-white border border-black/5 shadow-xs text-gray-700 hover:text-terracotta hover:scale-110 transition-all"
                     aria-label="Email"
                   >

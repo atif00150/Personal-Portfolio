@@ -717,7 +717,7 @@ export function SkillsSection() {
     {
       id: 'tools',
       title: 'TOOLS',
-      directSkills: ['VS CODE', 'CANVA', 'WORDPRESS']
+      directSkills: ['ADOBE PHOTOSHOP', 'ADOBE PREMIERE PRO', 'ADOBE AFTER EFFECTS', 'VS CODE', 'CANVA', 'WORDPRESS']
     }
   ];
 
@@ -996,7 +996,7 @@ export function ContactSection() {
                 Available for freelance projects & full-time roles.
               </div>
               <div className="text-sm text-gray-500">
-                Email: <a href="mailto:contact@atifmughal.dev" className="text-terracotta font-semibold hover:underline">contact@atifmughal.dev</a>
+                Email: <a href="mailto:atifmughal00150@gmail.com" className="text-terracotta font-semibold hover:underline">atifmughal00150@gmail.com</a>
               </div>
             </div>
           </div>
@@ -1064,7 +1064,7 @@ export function Footer() {
       {/* Balanced Wide Container */}
       <div className="max-w-[1380px] mx-auto px-4 sm:px-8 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-4 font-lato">
         <p className="text-xs font-semibold text-gray-500">
-          &copy; {new Date().getFullYear()} MUHAMMAD ATIF. All rights reserved. Built with Next.js & Tailwind CSS.
+          &copy; {new Date().getFullYear()} MUHAMMAD ATIF.
         </p>
         <div className="flex items-center gap-6 text-xs font-semibold text-gray-600">
           <a href="#home" className="hover:text-terracotta transition-colors">Home</a>
