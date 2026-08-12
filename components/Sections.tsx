@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { 
   Code2, 
   Briefcase, 
@@ -33,7 +33,9 @@ import {
   Linkedin,
   MessageSquare,
   Calendar,
-  Sparkles
+  Sparkles,
+  Play,
+  Video
 } from 'lucide-react';
 
 /* ==================== TECHNOLOGIES SECTION (Placed above About) ==================== */
@@ -360,6 +362,38 @@ export function AboutSection() {
 /* ==================== PROJECTS SECTION ==================== */
 export function ProjectsSection() {
   const [activeModal, setActiveModal] = useState<any | null>(null);
+  const [playingVideos, setPlayingVideos] = useState<Record<string, boolean>>({});
+
+  const handleCloseModal = () => {
+    setActiveModal(null);
+    setPlayingVideos({});
+  };
+
+  const [showFourth, setShowFourth] = useState(false);
+  const observerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShowFourth(true);
+        }
+      },
+      { 
+        threshold: 0.05,
+        rootMargin: '0px 0px 50px 0px'
+      }
+    );
+    const target = observerRef.current;
+    if (target) {
+      observer.observe(target);
+    }
+    return () => {
+      if (target) {
+        observer.unobserve(target);
+      }
+    };
+  }, []);
 
   const projects = [
     {
@@ -452,6 +486,30 @@ export function ProjectsSection() {
           { method: 'POST', path: '/api/v1/analytics/3d-event', desc: 'Logs interactive 3D scene user engagement metrics' }
         ]
       }
+    },
+    {
+      id: 'creative-media',
+      title: 'MULTIMEDIA & VIDEO PRODUCTION — Video Editing Portfolio',
+      subtitle: 'Creative Editing, 2D Motion Graphics & Podcast Production',
+      description: 'High-impact visual editing and post-production portfolio featuring 2D motion graphics explainer videos, multi-cam podcast post-production, kinetic subtitles, and viral short-form content for social outreach.',
+      tags: ['Adobe Premiere Pro', 'After Effects', 'CapCut Pro', 'Chroma Keying', 'Motion Graphics', 'Sound Sync'],
+      icon: <Video className="w-6 h-6 text-terracotta" />,
+      caseStudy: {
+        title: 'Motion Design & Video Production Showcase',
+        architecture: 'Adobe Premiere Pro & After Effects CC Workflow Integration',
+        summary: 'A collection of visual work created to drive engagement, including commercial explainer videos, podcast edits, client testimonials, and vertical viral reels.',
+        highlights: [
+          'Video Editing & Cut-downs: Full assembly, pacing, and dynamic scene cuts.',
+          '2D Motion Graphics: Vector integration and kinetic typography.',
+          'Audio & Voice-over Sync: Leveling, noise reduction, and multi-track audio sync.',
+          'Short-form Viral Reels: Mobile-first vertical content optimized for reels/shorts.'
+        ],
+        techStack: {
+          backend: ['Adobe Premiere Pro CC', 'Adobe After Effects CC', 'CapCut Pro'],
+          frontend: ['YouTube Iframe Embed API', 'Responsive CSS Media Layouts']
+        },
+        endpoints: []
+      }
     }
   ];
 
@@ -469,7 +527,7 @@ export function ProjectsSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 font-lato">
-          {projects.map((project, idx) => (
+          {projects.slice(0, 3).map((project, idx) => (
             <div 
               key={idx} 
               className="p-6 rounded-3xl card-theme flex flex-col justify-between hover:scale-[1.02] transition-transform duration-300 group bg-white border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.04)]"
@@ -511,6 +569,62 @@ export function ProjectsSection() {
             </div>
           ))}
         </div>
+
+        {/* Scroll trigger detection node */}
+        <div ref={observerRef} className="h-1 w-full" />
+
+        {/* Dynamic 4th Project Scroll Reveal (Full Width) */}
+        {projects[3] && (
+          <div className="mt-8 font-lato">
+            <div className={`transition-all duration-700 ease-out transform ${
+              showFourth 
+                ? 'opacity-100 translate-y-0 scale-100 max-h-[1000px] pointer-events-auto' 
+                : 'opacity-0 translate-y-10 scale-95 max-h-0 overflow-hidden pointer-events-none'
+            }`}>
+              <div className="p-6 sm:p-8 rounded-3xl card-theme flex flex-col md:flex-row md:items-center md:justify-between gap-6 hover:scale-[1.01] transition-transform duration-300 group bg-white border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
+                {/* Left side content */}
+                <div className="flex-1 space-y-4">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3.5 rounded-2xl bg-black/5 group-hover:bg-terracotta/10 transition-colors">
+                      {projects[3].icon}
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 group-hover:text-terracotta transition-colors">
+                        {projects[3].title}
+                      </h3>
+                      <p className="text-xs font-bold text-terracotta/90 font-mono">
+                        {projects[3].subtitle}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600 leading-relaxed max-w-3xl">
+                    {projects[3].description}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5 pt-2">
+                    {projects[3].tags.map((tag, tIdx) => (
+                      <span 
+                        key={tIdx} 
+                        className="px-2.5 py-1 text-[11px] font-semibold rounded-lg bg-black/5 text-gray-700"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Right side button */}
+                <div className="shrink-0 pt-2 md:pt-0">
+                  <button 
+                    onClick={() => setActiveModal(projects[3])}
+                    className="w-full md:w-auto px-8 py-3.5 rounded-xl bg-gray-900 text-white dark:bg-white dark:text-gray-950 text-xs font-black uppercase tracking-wider hover:bg-terracotta dark:hover:bg-terracotta hover:text-white transition-colors cursor-pointer text-center shadow-md flex items-center justify-center gap-2 font-mono font-bold"
+                  >
+                    View Case Study <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
         {/* Centered refined CTA to GitHub */}
         <div className="mt-12 text-center">
           <a
@@ -529,84 +643,95 @@ export function ProjectsSection() {
       {/* Case Study Full Modal Overlay */}
       {activeModal && activeModal.caseStudy && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm animate-fade-in font-lato overflow-y-auto">
-          <div className="relative w-full max-w-4xl max-h-[90vh] bg-[#fbfaf8] rounded-3xl shadow-2xl border border-black/10 overflow-hidden flex flex-col my-auto">
+          <div className="relative w-full max-w-4xl max-h-[92vh] bg-[#dae6dd] dark:bg-[#121613] text-gray-900 dark:text-gray-100 rounded-3xl shadow-2xl border border-black/10 dark:border-white/10 overflow-hidden flex flex-col my-auto animate-scale-in">
             
             {/* Modal Header Bar */}
-            <div className="p-6 bg-[#141816] text-white flex items-center justify-between border-b border-white/10 shrink-0">
-              <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-xl bg-terracotta text-white">
+            <div className="p-6 bg-[#c2d8c9] dark:bg-[#1f2c23] text-gray-900 dark:text-white flex items-center justify-between border-b border-black/10 dark:border-white/10 shrink-0">
+              <div className="flex items-center gap-3.5">
+                <div className="p-2.5 rounded-xl bg-terracotta text-white shadow-md">
                   <Building2 className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-black tracking-wide text-white">
+                  <h3 className="text-lg font-black tracking-wide">
                     {activeModal.caseStudy.title}
                   </h3>
-                  <p className="text-xs text-gray-400 font-mono mt-0.5">
-                    Next.js 14 App Router + C# .NET 8 ASP.NET Core Clean Architecture
+                  <p className="text-xs text-gray-700 dark:text-emerald-400 font-mono mt-0.5 font-bold tracking-wider">
+                    {activeModal.id === 'codentraa' ? 'Next.js 14 App Router + C# .NET 8 ASP.NET Core Onion Architecture' : 
+                     activeModal.id === 'lockmaster' ? 'React 19 + Vite HMR SPA + Tailwind CSS v4' : 
+                     'React 18 + Three.js WebGL + Rapier 3D Physics + GSAP'}
                   </p>
                 </div>
               </div>
               <button 
-                onClick={() => setActiveModal(null)}
-                className="p-2 rounded-xl bg-white/10 text-gray-300 hover:text-white hover:bg-white/20 transition-colors"
+                onClick={handleCloseModal}
+                className="p-2 rounded-xl bg-black/5 dark:bg-white/5 text-gray-700 dark:text-gray-400 hover:text-gray-950 dark:hover:text-white hover:bg-black/10 dark:hover:bg-white/10 border border-black/10 dark:border-white/10 transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Modal Scrollable Body */}
-            <div className="p-6 sm:p-8 overflow-y-auto space-y-8 text-gray-800">
+            <div className="p-6 sm:p-8 overflow-y-auto space-y-8 bg-[#dae6dd] dark:bg-[#121613] text-gray-900 dark:text-gray-100">
               
               {/* Section 1: Executive Summary */}
-              <div className="p-5 rounded-2xl bg-white border border-black/5 shadow-sm">
-                <h4 className="text-sm font-black uppercase text-terracotta tracking-wider mb-2 flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-terracotta" /> Executive Overview
+              <div className="p-6 rounded-3xl card-theme relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-[4px] h-full bg-emerald-600"></div>
+                <h4 className="text-xs font-black uppercase text-terracotta dark:text-emerald-450 tracking-wider mb-2.5 flex items-center gap-2">
+                  <Zap className="w-4 h-4 text-terracotta dark:text-emerald-400" /> Executive Overview
                 </h4>
-                <p className="text-sm leading-relaxed text-gray-700">
+                <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
                   {activeModal.caseStudy.summary}
                 </p>
               </div>
 
               {/* Section 2: Architectural Highlights */}
-              <div className="space-y-3">
-                <h4 className="text-sm font-black uppercase text-gray-900 tracking-wider flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600" /> Key Architectural Innovations
+              <div className="space-y-3.5">
+                <h4 className="text-xs font-black uppercase text-gray-800 dark:text-gray-200 tracking-wider flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-terracotta" /> Key Architectural Innovations
                 </h4>
-                <div className="grid grid-cols-1 gap-2.5">
-                  {activeModal.caseStudy.highlights.map((item: string, hIdx: number) => (
-                    <div key={hIdx} className="p-3.5 rounded-xl bg-white border border-black/5 flex items-start gap-3 shadow-xs">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                      <span className="text-xs sm:text-sm text-gray-700 font-medium leading-normal">{item}</span>
-                    </div>
-                  ))}
+                <div className="grid grid-cols-1 gap-3">
+                  {activeModal.caseStudy.highlights.map((item: string, hIdx: number) => {
+                    const parts = item.split(': ');
+                    const title = parts.length > 1 ? parts[0] : '';
+                    const desc = parts.length > 1 ? parts[1] : item;
+                    return (
+                      <div key={hIdx} className="p-4 rounded-2xl card-theme flex items-start gap-3.5 hover:scale-[1.01] transition-transform duration-300">
+                        <CheckCircle2 className="w-4.5 h-4.5 text-emerald-600 dark:text-emerald-500 shrink-0 mt-0.5" />
+                        <div className="text-xs sm:text-sm">
+                          {title && <span className="font-extrabold text-gray-950 dark:text-white block mb-0.5">{title}</span>}
+                          <span className="text-gray-600 dark:text-gray-300 leading-relaxed">{desc}</span>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
 
               {/* Section 3: Technology Specs Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-5 rounded-2xl bg-white border border-black/5 shadow-sm">
-                  <h5 className="text-xs font-black uppercase text-terracotta tracking-wider mb-3 flex items-center gap-2">
-                    <Server className="w-4 h-4" /> Backend (.NET 8 C# Clean Architecture)
+                <div className="p-5 rounded-2xl card-theme hover:scale-[1.01] transition-transform duration-300">
+                  <h5 className="text-xs font-black uppercase text-terracotta tracking-wider mb-4 flex items-center gap-2">
+                    <Server className="w-4.5 h-4.5" /> Backend & Core Engine
                   </h5>
-                  <ul className="space-y-2 text-xs font-mono text-gray-700">
+                  <ul className="space-y-3 text-xs font-mono text-gray-700 dark:text-gray-300">
                     {activeModal.caseStudy.techStack.backend.map((b: string, bIdx: number) => (
-                      <li key={bIdx} className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-terracotta"></span>
-                        {b}
+                      <li key={bIdx} className="flex items-start gap-2.5">
+                        <span className="w-2 h-2 rounded-full bg-terracotta mt-1.5 shrink-0"></span>
+                        <span className="leading-relaxed">{b}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-white border border-black/5 shadow-sm">
-                  <h5 className="text-xs font-black uppercase text-emerald-700 tracking-wider mb-3 flex items-center gap-2">
-                    <Globe className="w-4 h-4" /> Frontend (Next.js 14 App Router)
+                <div className="p-5 rounded-2xl card-theme hover:scale-[1.01] transition-transform duration-300">
+                  <h5 className="text-xs font-black uppercase text-emerald-600 dark:text-emerald-400 tracking-wider mb-4 flex items-center gap-2">
+                    <Globe className="w-4.5 h-4.5" /> Frontend & Interactive UI
                   </h5>
-                  <ul className="space-y-2 text-xs font-mono text-gray-700">
+                  <ul className="space-y-3 text-xs font-mono text-gray-700 dark:text-gray-300">
                     {activeModal.caseStudy.techStack.frontend.map((f: string, fIdx: number) => (
-                      <li key={fIdx} className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
-                        {f}
+                      <li key={fIdx} className="flex items-start gap-2.5">
+                        <span className="w-2 h-2 rounded-full bg-emerald-600 dark:bg-emerald-500 mt-1.5 shrink-0"></span>
+                        <span className="leading-relaxed">{f}</span>
                       </li>
                     ))}
                   </ul>
@@ -614,46 +739,85 @@ export function ProjectsSection() {
               </div>
 
               {/* Section 4: REST API Specs Table */}
-              <div className="space-y-3">
-                <h4 className="text-sm font-black uppercase text-gray-900 tracking-wider flex items-center gap-2">
-                  <Lock className="w-4 h-4 text-terracotta" /> REST API & WebSockets Specs
-                </h4>
-                <div className="overflow-x-auto rounded-2xl border border-black/10 bg-white">
-                  <table className="w-full text-xs text-left font-mono">
-                    <thead className="bg-[#141816] text-gray-300 uppercase text-[10px] tracking-wider">
-                      <tr>
-                        <th className="px-4 py-3">Method</th>
-                        <th className="px-4 py-3">Endpoint URL</th>
-                        <th className="px-4 py-3">Description</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-100">
-                      {activeModal.caseStudy.endpoints.map((ep: any, eIdx: number) => (
-                        <tr key={eIdx} className="hover:bg-gray-50/80">
-                          <td className="px-4 py-2.5 font-bold">
-                            <span className={`px-2 py-0.5 rounded text-[10px] ${
-                              ep.method === 'POST' ? 'bg-emerald-100 text-emerald-800' :
-                              ep.method === 'GET' ? 'bg-blue-100 text-blue-800' :
-                              'bg-amber-100 text-amber-800'
-                            }`}>
-                              {ep.method}
-                            </span>
-                          </td>
-                          <td className="px-4 py-2.5 font-bold text-gray-900">{ep.path}</td>
-                          <td className="px-4 py-2.5 text-gray-600 font-lato">{ep.desc}</td>
+              {activeModal.caseStudy.endpoints && activeModal.caseStudy.endpoints.length > 0 && (
+                <div className="space-y-3">
+                  <h4 className="text-xs font-black uppercase text-gray-800 dark:text-gray-200 tracking-wider flex items-center gap-2">
+                    <Lock className="w-4 h-4 text-terracotta" /> API Endpoints & Routes Specs
+                  </h4>
+                  <div className="overflow-x-auto rounded-2xl border border-black/10 dark:border-white/10 card-theme">
+                    <table className="w-full text-xs text-left font-mono">
+                      <thead className="bg-[#c2d8c9] dark:bg-[#1f2c23] text-gray-900 dark:text-gray-300 uppercase text-[10px] tracking-widest border-b border-black/10 dark:border-white/10">
+                        <tr>
+                          <th className="px-5 py-4">Method</th>
+                          <th className="px-5 py-4">Endpoint URL</th>
+                          <th className="px-5 py-4">Description</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody className="divide-y divide-black/5 dark:divide-white/5 bg-white dark:bg-[#1a211c]">
+                        {activeModal.caseStudy.endpoints.map((ep: any, eIdx: number) => (
+                          <tr key={eIdx} className="hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+                            <td className="px-5 py-3.5 font-bold">
+                              <span className={`px-2.5 py-1 rounded-md text-[10px] font-black tracking-wider ${
+                                ep.method === 'POST' ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20' :
+                                ep.method === 'GET' ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20' :
+                                'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
+                              }`}>
+                                {ep.method}
+                              </span>
+                            </td>
+                            <td className="px-5 py-3.5 font-bold text-gray-950 dark:text-white tracking-wide">{ep.path}</td>
+                            <td className="px-5 py-3.5 text-gray-600 dark:text-gray-400 font-lato">{ep.desc}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-              </div>
+              )}
+
+              {/* Section 5: Platform & Dashboard Showcase (Only for Codentraa) */}
+              {activeModal.id === 'codentraa' && (
+                <div className="space-y-4 pt-4 border-t border-black/10 dark:border-white/10">
+                  <h4 className="text-sm font-black uppercase text-gray-800 dark:text-gray-200 tracking-wider flex items-center gap-2">
+                    <Globe className="w-4 h-4 text-emerald-600" /> Platform & Dashboard Showcase
+                  </h4>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 font-medium leading-normal -mt-2">
+                    Visual interfaces and application dashboard screens for the CODENTRAA enterprise SaaS portal.
+                  </p>
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {[
+                      { src: '/projects/codentraa/login.png', label: '1. Login Screen & Portal Entry' },
+                      { src: '/projects/codentraa/dashboard.png', label: '2. Main Dashboard & Workspace Overview' }
+                    ].map((img, imgIdx) => (
+                      <div 
+                        key={imgIdx} 
+                        className="group relative overflow-hidden rounded-2xl card-theme p-2.5 transition-all duration-300 hover:scale-[1.01]"
+                      >
+                        <div className="overflow-hidden rounded-xl bg-black/5 dark:bg-black/40">
+                          <img 
+                            src={img.src} 
+                            alt={img.label} 
+                            className="w-full h-auto object-cover transform transition-transform duration-500 group-hover:scale-[1.03]"
+                          />
+                        </div>
+                        <div className="mt-2.5 px-1 flex items-center justify-between text-xs font-bold text-gray-700 dark:text-gray-300">
+                          <span>{img.label}</span>
+                          <span className="text-[10px] text-terracotta font-mono uppercase">Portal Screen</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Section 5: Figma & Web Design Showcase (Only for Lock Master) */}
               {activeModal.id === 'lockmaster' && (
-                <div className="space-y-4 pt-4 border-t border-gray-100">
-                  <h4 className="text-sm font-black uppercase text-gray-900 tracking-wider flex items-center gap-2">
+                <div className="space-y-4 pt-4 border-t border-black/10 dark:border-white/10">
+                  <h4 className="text-sm font-black uppercase text-gray-800 dark:text-gray-200 tracking-wider flex items-center gap-2">
                     <Globe className="w-4 h-4 text-emerald-600" /> Figma & Web Design Showcase
                   </h4>
-                  <p className="text-xs text-gray-500 font-medium leading-normal -mt-2">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 font-medium leading-normal -mt-2">
                     Visual interfaces and high-fidelity screen layouts designed for the Lock Master security and locksmith platform.
                   </p>
                   
@@ -667,18 +831,18 @@ export function ProjectsSection() {
                     ].map((img, imgIdx) => (
                       <div 
                         key={imgIdx} 
-                        className={`group relative overflow-hidden rounded-2xl border border-black/10 bg-white p-2 shadow-xs transition-all duration-300 hover:shadow-md hover:border-terracotta/30 ${
+                        className={`group relative overflow-hidden rounded-2xl card-theme p-2.5 transition-all duration-300 hover:scale-[1.01] ${
                           imgIdx === 0 ? 'sm:col-span-2' : ''
                         }`}
                       >
-                        <div className="overflow-hidden rounded-xl bg-gray-50">
+                        <div className="overflow-hidden rounded-xl bg-black/5 dark:bg-black/40">
                           <img 
                             src={img.src} 
                             alt={img.label} 
                             className="w-full h-auto object-cover transform transition-transform duration-500 group-hover:scale-[1.03]"
                           />
                         </div>
-                        <div className="mt-2 px-1 flex items-center justify-between text-xs font-bold text-gray-700">
+                        <div className="mt-2.5 px-1 flex items-center justify-between text-xs font-bold text-gray-700 dark:text-gray-300">
                           <span>{img.label}</span>
                           <span className="text-[10px] text-terracotta font-mono uppercase">Figma Layout</span>
                         </div>
@@ -688,16 +852,262 @@ export function ProjectsSection() {
                 </div>
               )}
 
+              {/* Section 5: 3D Graphics Showcase (Only for Codentra Portfolio) */}
+              {activeModal.id === 'codentra-portfolio' && (
+                <div className="space-y-4 pt-4 border-t border-black/10 dark:border-white/10">
+                  <h4 className="text-sm font-black uppercase text-gray-800 dark:text-gray-200 tracking-wider flex items-center gap-2">
+                    <Globe className="w-4 h-4 text-emerald-600" /> 3D WebGL Graphics & Character Showcase
+                  </h4>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 font-medium leading-normal -mt-2">
+                    High-fidelity 3D interactive avatar and physics-based web showcase layout.
+                  </p>
+                  
+                  <div className="max-w-2xl mx-auto group relative overflow-hidden rounded-2xl card-theme p-2.5 transition-all duration-300 hover:scale-[1.01]">
+                    <div className="overflow-hidden rounded-xl bg-black/5 dark:bg-black/40">
+                      <img 
+                        src="/projects/codentra-portfolio/avatar.png" 
+                        alt="3D Avatar Showcase" 
+                        className="w-full h-auto object-cover transform transition-transform duration-500 group-hover:scale-[1.02]"
+                      />
+                    </div>
+                    <div className="mt-2.5 px-2 flex items-center justify-between text-xs font-bold text-gray-700 dark:text-gray-300">
+                      <span>3D Interactive Landing Area & Avatar Model</span>
+                      <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono uppercase">Three.js Scene</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Section 5: Creative Media & Video Editing Showcase (Only for creative-media) */}
+              {activeModal.id === 'creative-media' && (
+                <div className="space-y-8 pt-4 border-t border-black/10 dark:border-white/10">
+                  
+                  {/* Featured Explainer Video */}
+                  <div className="space-y-4">
+                    <span className="inline-flex items-center px-3 py-1 rounded-lg bg-terracotta/10 text-terracotta text-xs font-bold tracking-wider uppercase">
+                      Featured Video Explainer
+                    </span>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 font-medium leading-normal -mt-2">
+                      MyImpactMeter promotional explainer video and production checklist.
+                    </p>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                      <div className="md:col-span-6 space-y-3.5">
+                        <h5 className="font-extrabold text-sm text-gray-950 dark:text-white">My Responsibilities:</h5>
+                        <div className="grid grid-cols-1 gap-2 text-xs text-gray-700 dark:text-gray-350">
+                          {[
+                            'Video Editing & Cut-downs',
+                            '2D Motion Graphics Integration',
+                            'Text & Kinetic Typography Animation',
+                            'Audio & Voice-over Sync',
+                            'Final Rendering & Export'
+                          ].map((item, idx) => (
+                            <div key={idx} className="flex items-center gap-2">
+                              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                              <span>{item}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="md:col-span-6">
+                        <div className="relative aspect-video rounded-xl overflow-hidden bg-black/5 dark:bg-black/40 flex items-center justify-center border border-black/10 dark:border-white/10">
+                          {playingVideos['featured'] ? (
+                            <iframe
+                              className="w-full h-full aspect-video"
+                              src="https://www.youtube.com/embed/ZHuzA7Hjg5I?autoplay=1"
+                              title="MyImpactMeter Explainer Video"
+                              frameBorder="0"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                              allowFullScreen
+                            ></iframe>
+                          ) : (
+                            <div 
+                              onClick={() => setPlayingVideos(prev => ({ ...prev, featured: true }))} 
+                              className="absolute inset-0 cursor-pointer group flex items-center justify-center"
+                            >
+                              <img 
+                                src="https://img.youtube.com/vi/ZHuzA7Hjg5I/maxresdefault.jpg" 
+                                alt="MyImpactMeter Explainer Video" 
+                                className="absolute inset-0 w-full h-full object-cover" 
+                              />
+                              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
+                              <div className="relative z-10 w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-md transform transition-transform group-hover:scale-110 duration-300">
+                                <Play className="w-5 h-5 fill-current text-white ml-0.5" />
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Long-Form Podcasts */}
+                  <div className="space-y-4 pt-4 border-t border-black/5 dark:border-white/5">
+                    <h5 className="font-extrabold text-sm text-gray-900 dark:text-white uppercase tracking-wider">Long-Form Podcasts</h5>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {[
+                        { id: 'pod-1', title: 'Humans With Purpose — Episode 1', desc: 'Multi-cam editing, audio leveling, and subtitle animation.', videoId: 'w41W_kgri7g' },
+                        { id: 'pod-2', title: 'Humans With Purpose — Episode 2', desc: 'Chroma keying, motion graphics intro, and final render.', videoId: '8NnRwAD7Aas' }
+                      ].map((pod) => (
+                        <div key={pod.id} className="p-3 rounded-2xl bg-white dark:bg-[#1a211c] border border-black/5 dark:border-white/5 space-y-3">
+                          <div className="relative aspect-video rounded-xl overflow-hidden bg-black/5 dark:bg-black/40 flex items-center justify-center">
+                            {playingVideos[pod.id] ? (
+                              <iframe
+                                className="w-full h-full aspect-video"
+                                src={`https://www.youtube.com/embed/${pod.videoId}?autoplay=1`}
+                                title={pod.title}
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowFullScreen
+                              ></iframe>
+                            ) : (
+                              <div 
+                                onClick={() => setPlayingVideos(prev => ({ ...prev, [pod.id]: true }))} 
+                                className="absolute inset-0 cursor-pointer group flex items-center justify-center"
+                              >
+                                <img 
+                                  src={`https://img.youtube.com/vi/${pod.videoId}/maxresdefault.jpg`} 
+                                  alt={pod.title} 
+                                  className="absolute inset-0 w-full h-full object-cover" 
+                                />
+                                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
+                                <div className="relative z-10 w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-md transform transition-transform group-hover:scale-110 duration-300">
+                                  <Play className="w-4 h-4 fill-current text-white ml-0.5" />
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                          <div>
+                            <h6 className="font-extrabold text-gray-950 dark:text-white text-xs truncate">{pod.title}</h6>
+                            <p className="text-[10px] text-gray-500 mt-0.5 leading-relaxed">{pod.desc}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Client Testimonials */}
+                  <div className="space-y-4 pt-4 border-t border-black/5 dark:border-white/5">
+                    <h5 className="font-extrabold text-sm text-gray-900 dark:text-white uppercase tracking-wider">Client Testimonials</h5>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      {[
+                        { id: 'test-1', title: 'Client Testimonial #1', videoId: '3Rn4FdqyWA0' },
+                        { id: 'test-2', title: 'Client Testimonial #2', videoId: '_85TNMWzo6U' },
+                        { id: 'test-3', title: 'Client Testimonial #3', videoId: 'yTKPEvBLewQ' }
+                      ].map((test) => (
+                        <div key={test.id} className="p-2.5 rounded-2xl bg-white dark:bg-[#1a211c] border border-black/5 dark:border-white/5 space-y-2">
+                          <div className="relative aspect-video rounded-xl overflow-hidden bg-black/5 dark:bg-black/40 flex items-center justify-center">
+                            {playingVideos[test.id] ? (
+                              <iframe
+                                className="w-full h-full aspect-video"
+                                src={`https://www.youtube.com/embed/${test.videoId}?autoplay=1`}
+                                title={test.title}
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowFullScreen
+                              ></iframe>
+                            ) : (
+                              <div 
+                                onClick={() => setPlayingVideos(prev => ({ ...prev, [test.id]: true }))} 
+                                className="absolute inset-0 cursor-pointer group flex items-center justify-center"
+                              >
+                                <img 
+                                  src={`https://img.youtube.com/vi/${test.videoId}/maxresdefault.jpg`} 
+                                  alt={test.title} 
+                                  className="absolute inset-0 w-full h-full object-cover" 
+                                />
+                                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
+                                <div className="relative z-10 w-9 h-9 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-md transform transition-transform group-hover:scale-110 duration-300">
+                                  <Play className="w-3.5 h-3.5 fill-current text-white ml-0.5" />
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                          <h6 className="font-extrabold text-gray-950 dark:text-white text-xs truncate px-0.5">{test.title}</h6>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Viral Shorts & Reels */}
+                  <div className="space-y-4 pt-4 border-t border-black/5 dark:border-white/5">
+                    <h5 className="font-extrabold text-sm text-gray-900 dark:text-white uppercase tracking-wider">Viral Shorts & Reels</h5>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                      {[
+                        { id: 'short-1', videoId: 'qMQRGE4Lpjo' },
+                        { id: 'short-2', videoId: 'WBFeElbhzQk' },
+                        { id: 'short-3', videoId: '4jju527jC2c' },
+                        { id: 'short-4', videoId: 'PCqiyix3f-8' },
+                        { id: 'short-5', videoId: 'EPzRBIiMN00' },
+                        { id: 'short-6', videoId: 'yqh_INNd7tU' },
+                        { id: 'short-7', videoId: 'IXaKpLI7bOc' },
+                        { id: 'short-8', videoId: 'tZIcCIK002M' }
+                      ].map((short) => (
+                        <div key={short.id} className="p-2 rounded-2xl bg-white dark:bg-[#1a211c] border border-black/5 dark:border-white/5">
+                          <div className="relative aspect-[9/16] rounded-xl overflow-hidden bg-black/5 dark:bg-black/40 flex items-center justify-center">
+                            {playingVideos[short.id] ? (
+                              <iframe
+                                className="w-full h-full aspect-[9/16]"
+                                src={`https://www.youtube.com/embed/${short.videoId}?autoplay=1`}
+                                title="Short Video"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowFullScreen
+                              ></iframe>
+                            ) : (
+                              <div 
+                                onClick={() => setPlayingVideos(prev => ({ ...prev, [short.id]: true }))} 
+                                className="absolute inset-0 cursor-pointer group flex items-center justify-center"
+                              >
+                                <img 
+                                  src={`https://img.youtube.com/vi/${short.videoId}/maxresdefault.jpg`} 
+                                  alt="Short Video" 
+                                  className="absolute inset-0 w-full h-full object-cover" 
+                                />
+                                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
+                                <div className="relative z-10 w-9 h-9 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-md transform transition-transform group-hover:scale-110 duration-300">
+                                  <Play className="w-3.5 h-3.5 fill-current text-white ml-0.5" />
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Production Toolkit */}
+                  <div className="space-y-4 pt-4 border-t border-black/5 dark:border-white/5">
+                    <h5 className="font-extrabold text-sm text-gray-900 dark:text-white uppercase tracking-wider">Production Toolkit</h5>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      {[
+                        { name: 'Adobe Premiere Pro', badge: 'Pr', color: 'border-[#ea77ff]/30 text-[#ea77ff] bg-[#ea77ff]/5' },
+                        { name: 'Adobe After Effects', badge: 'Ae', color: 'border-[#9999ff]/30 text-[#9999ff] bg-[#9999ff]/5' },
+                        { name: 'CapCut Pro', badge: 'Cap', color: 'border-emerald-500/30 text-emerald-600 dark:text-emerald-400 bg-emerald-500/5' }
+                      ].map((tool, idx) => (
+                        <div key={idx} className="p-4 rounded-xl border border-black/10 dark:border-white/10 bg-white dark:bg-[#1a211c] flex items-center gap-3">
+                          <div className={`w-9 h-9 rounded-lg flex items-center justify-center font-sans font-black text-xs border shrink-0 ${tool.color}`}>
+                            {tool.badge}
+                          </div>
+                          <span className="font-bold text-xs text-gray-900 dark:text-white">{tool.name}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                </div>
+              )}
+
             </div>
 
             {/* Modal Footer */}
-            <div className="p-4 px-6 bg-white border-t border-black/5 flex items-center justify-between shrink-0">
-              <span className="text-xs font-mono text-gray-500">
+            <div className="p-5 px-6 bg-[#c2d8c9] dark:bg-[#1f2c23] border-t border-black/10 dark:border-white/10 flex items-center justify-between shrink-0">
+              <span className="text-xs font-mono text-gray-600 dark:text-gray-400 truncate max-w-[60%] font-bold">
                 Path: {activeModal.id === 'codentraa' ? 'C:\\Users\\Atif Mughal\\Downloads\\Codentra portal final' : activeModal.id === 'lockmaster' ? 'C:\\Users\\Atif Mughal\\Downloads\\lock_master-main' : activeModal.id === 'codentra-portfolio' ? 'C:\\Users\\Atif Mughal\\Downloads\\codentra-portfolio-main' : 'Local Project Workspace'}
               </span>
               <button 
-                onClick={() => setActiveModal(null)}
-                className="px-5 py-2 rounded-xl bg-gray-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-terracotta transition-colors shadow-sm"
+                onClick={handleCloseModal}
+                className="px-6 py-2.5 rounded-xl bg-gray-900 text-white dark:bg-white dark:text-gray-950 text-xs font-black uppercase tracking-wider hover:bg-terracotta dark:hover:bg-terracotta hover:text-white transition-colors shadow-md cursor-pointer"
               >
                 Close Case Study
               </button>
@@ -867,9 +1277,9 @@ export function SkillsSection() {
                             
                             <div className="flex items-center gap-1.5 font-semibold text-gray-800">
                               <span>{item.name}</span>
-                              {item.count && (
+                              {(item as any).count && (
                                 <span className="px-1 rounded bg-gray-900/10 text-[9px] text-gray-600">
-                                  {item.count}
+                                  {(item as any).count}
                                 </span>
                               )}
                             </div>
