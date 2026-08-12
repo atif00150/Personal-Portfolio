@@ -860,22 +860,25 @@ export function SkillsSection() {
 export function ExperienceSection() {
   const experiences = [
     {
-      role: 'Senior Full Stack Engineer',
-      company: 'Tech Solutions Inc.',
-      period: '2023 - Present',
-      description: 'Leading development of Next.js micro-frontends, optimizing web application latency by 40%, and mentoring junior engineers.'
+      role: 'Video Editing & Marketing Officer',
+      company: 'My Impact Meter',
+      period: '2023 – Present',
+      points: [
+        'Edited and produced high-quality videos for digital platforms.',
+        'Managed social media accounts to enhance brand visibility.',
+        'Developed and executed marketing strategies to drive engagement.',
+        'Optimized content for SEO and social media performance.',
+        'Ran and managed Google Ads campaigns for targeted reach.'
+      ]
     },
     {
-      role: 'Full Stack Developer',
-      company: 'Digital Product Agency',
-      period: '2021 - 2023',
-      description: 'Built scalable React & Node.js web applications for global clients, integrating payment gateways and cloud services.'
-    },
-    {
-      role: 'Frontend Developer',
-      company: 'Innovate Tech',
-      period: '2019 - 2021',
-      description: 'Developed responsive UI interfaces, implemented design systems, and collaborated with UX designers.'
+      role: 'Video Editor',
+      company: 'Encosoft Technologies',
+      period: '2022 – 2023',
+      points: [
+        'Produced high-quality digital content and media assets for company operations.',
+        'Collaborated with cross-functional teams in an IT environment, ensuring project timelines were met.'
+      ]
     }
   ];
 
@@ -894,18 +897,30 @@ export function ExperienceSection() {
 
         <div className="space-y-6 font-lato">
           {experiences.map((exp, idx) => (
-            <div key={idx} className="p-6 rounded-3xl card-theme bg-white flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <div className="space-y-1">
-                <div className="flex items-center gap-3">
-                  <Briefcase className="w-5 h-5 text-terracotta" />
-                  <h3 className="text-lg font-bold text-gray-900">{exp.role}</h3>
+            <div key={idx} className="p-6 sm:p-8 rounded-3xl card-theme bg-white border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.04)] space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gray-100 pb-4">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-xl bg-terracotta/10 text-terracotta">
+                      <Briefcase className="w-5 h-5" />
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900">{exp.role}</h3>
+                  </div>
+                  <p className="text-sm font-bold text-emerald-700 pl-10">{exp.company}</p>
                 </div>
-                <p className="text-sm font-semibold text-gray-500">{exp.company}</p>
-                <p className="text-sm text-gray-600 pt-2 leading-relaxed">{exp.description}</p>
+                <span className="shrink-0 px-4 py-1.5 rounded-full bg-terracotta/10 text-terracotta text-xs font-bold tracking-wide w-fit">
+                  {exp.period}
+                </span>
               </div>
-              <span className="shrink-0 px-3.5 py-1.5 rounded-full bg-black/5 text-xs font-bold text-gray-700 w-fit">
-                {exp.period}
-              </span>
+
+              <ul className="space-y-2.5 pt-1">
+                {exp.points.map((pt, pIdx) => (
+                  <li key={pIdx} className="flex items-start gap-3 text-sm text-gray-700 font-medium leading-relaxed">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>{pt}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
