@@ -98,7 +98,7 @@ export default function Hero() {
                     <Linkedin className="w-4 h-4" />
                   </a>
                   <a
-                    href="https://wa.me/"
+                    href="https://wa.me/923250015084"
                     target="_blank"
                     rel="noreferrer"
                     className="p-2 rounded-full bg-white border border-black/5 shadow-xs text-gray-700 hover:text-emerald-600 hover:scale-110 transition-all"
