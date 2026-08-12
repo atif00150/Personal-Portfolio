@@ -45,6 +45,8 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 body {
@@ -53,6 +55,7 @@ body {
   font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
   line-height: 1.5;
   overflow-x: hidden;
+  overflow-y: visible !important;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
