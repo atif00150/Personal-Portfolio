@@ -75,13 +75,10 @@ export default function Hero() {
 
               {/* Social Links */}
               <div className="flex flex-wrap items-center gap-3.5 pt-0.5">
-                <a 
-                  href="mailto:atifmughal00150@gmail.com"
-                  className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-terracotta hover:underline shrink-0"
-                >
-                  atifmughal00150@gmail.com
-                </a>
-                <div className="flex items-center gap-2.5">
+                <span className="text-xs font-extrabold uppercase tracking-wider text-gray-500 shrink-0">
+                  Let's connect
+                </span>
+                <div className="flex flex-wrap items-center gap-2.5">
                   <a
                     href="https://github.com"
                     target="_blank"
@@ -109,13 +106,21 @@ export default function Hero() {
                   >
                     <Twitter className="w-4 h-4" />
                   </a>
-                  <a
-                    href="mailto:atifmughal00150@gmail.com"
-                    className="p-2 rounded-full bg-white border border-black/5 shadow-xs text-gray-700 hover:text-terracotta hover:scale-110 transition-all"
-                    aria-label="Email"
-                  >
-                    <Mail className="w-4 h-4" />
-                  </a>
+                  <div className="flex items-center gap-2 bg-white pl-3.5 pr-2 py-1.5 rounded-full border border-black/5 shadow-xs hover:border-terracotta/20 transition-all">
+                    <a 
+                      href="mailto:atifmughal00150@gmail.com"
+                      className="text-xs font-bold text-gray-700 hover:text-terracotta transition-colors font-mono"
+                    >
+                      atifmughal00150@gmail.com
+                    </a>
+                    <a
+                      href="mailto:atifmughal00150@gmail.com"
+                      className="p-1 rounded-full text-gray-700 hover:text-terracotta hover:scale-110 transition-all"
+                      aria-label="Email"
+                    >
+                      <Mail className="w-4 h-4" />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
