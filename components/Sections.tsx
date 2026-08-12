@@ -1219,103 +1219,105 @@ export function SkillsSection() {
             <div className="absolute left-1/2 -top-4 w-[2px] h-4 bg-gray-900/40"></div>
           </div>
 
-          {/* 6 Category Columns Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6 lg:gap-8 items-start min-w-[850px] lg:min-w-0 p-2">
-            {categories.map((cat, idx) => {
-              const isSelected = activeCategory === cat.id;
-              const isOtherSelected = activeCategory !== null && activeCategory !== cat.id;
+          {/* 6 Category Columns Grid - Scrollable on Mobile/Tablet to prevent overlaps */}
+          <div className="w-full overflow-x-auto pb-6 scrollbar-thin">
+            <div className="grid grid-cols-6 gap-6 lg:gap-8 items-start min-w-[1020px] lg:min-w-0 p-2">
+              {categories.map((cat, idx) => {
+                const isSelected = activeCategory === cat.id;
+                const isOtherSelected = activeCategory !== null && activeCategory !== cat.id;
 
-              // Smart origin scaling to prevent edge clipping on BACKEND & TOOLS
-              const transformOriginClass = idx === 0 ? 'origin-top-left' : idx === categories.length - 1 ? 'origin-top-right' : 'origin-top';
+                // Smart origin scaling to prevent edge clipping on BACKEND & TOOLS
+                const transformOriginClass = idx === 0 ? 'origin-top-left' : idx === categories.length - 1 ? 'origin-top-right' : 'origin-top';
 
-              return (
-                <div 
-                  key={cat.id}
-                  onMouseEnter={() => setActiveCategory(cat.id)}
-                  onMouseLeave={() => setActiveCategory(null)}
-                  className={`cursor-pointer transition-all duration-300 rounded-2xl p-3 font-mono ${transformOriginClass} ${
-                    isSelected 
-                      ? 'scale-[1.05] opacity-100 bg-[#fbf3eb]/95 ring-2 ring-terracotta shadow-2xl z-30 border border-terracotta/30' 
-                      : isOtherSelected 
-                        ? 'opacity-25 filter blur-[2px] scale-95' 
-                        : 'hover:scale-[1.02] opacity-100'
-                  }`}
-                >
-                  {/* Category Header Box (Converts to Orange/Terracotta on Hover) */}
-                  <div className={`p-3 rounded-xl font-black text-xs sm:text-sm text-center uppercase tracking-wider border-2 border-gray-900 shadow-[3px_3px_0px_rgba(0,0,0,0.9)] transition-all duration-300 ${
-                    isSelected 
-                      ? 'bg-terracotta text-white shadow-[4px_4px_0px_rgba(0,0,0,0.9)]' 
-                      : 'bg-[#f7f5ef] text-gray-900'
-                  }`}>
-                    {cat.title}
-                  </div>
+                return (
+                  <div 
+                    key={cat.id}
+                    onMouseEnter={() => setActiveCategory(cat.id)}
+                    onMouseLeave={() => setActiveCategory(null)}
+                    className={`cursor-pointer transition-all duration-300 rounded-2xl p-3 font-mono ${transformOriginClass} ${
+                      isSelected 
+                        ? 'scale-[1.05] opacity-100 bg-[#fbf3eb]/95 ring-2 ring-terracotta shadow-2xl z-30 border border-terracotta/30' 
+                        : isOtherSelected 
+                          ? 'opacity-25 filter blur-[2px] scale-95' 
+                          : 'hover:scale-[1.02] opacity-100'
+                    }`}
+                  >
+                    {/* Category Header Box (Converts to Orange/Terracotta on Hover) */}
+                    <div className={`p-3 rounded-xl font-black text-xs sm:text-sm text-center uppercase tracking-wider border-2 border-gray-900 shadow-[3px_3px_0px_rgba(0,0,0,0.9)] transition-all duration-300 ${
+                      isSelected 
+                        ? 'bg-terracotta text-white shadow-[4px_4px_0px_rgba(0,0,0,0.9)]' 
+                        : 'bg-[#f7f5ef] text-gray-900'
+                    }`}>
+                      {cat.title}
+                    </div>
 
-                  {/* Connecting Vertical Line */}
-                  <div className={`w-[2px] h-4 mx-auto my-1 transition-colors ${isSelected ? 'bg-terracotta' : 'bg-gray-900/40'}`}></div>
+                    {/* Connecting Vertical Line */}
+                    <div className={`w-[2px] h-4 mx-auto my-1 transition-colors ${isSelected ? 'bg-terracotta' : 'bg-gray-900/40'}`}></div>
 
-                  {/* Visual Tree Branch Connectors Sub-Tree */}
-                  <div className="space-y-3 pt-1 text-xs">
-                    {/* Render Grouped Sub-Skills */}
-                    {cat.subGroups && cat.subGroups.map((group, gIdx) => (
-                      <div key={gIdx} className={`relative border-l-2 pl-3 space-y-2 transition-colors ${isSelected ? 'border-terracotta' : 'border-gray-900/40'}`}>
-                        {/* Horizontal Branch Connector Line */}
-                        <div className={`absolute -left-[2px] top-2.5 w-2.5 h-[2px] transition-colors ${isSelected ? 'bg-terracotta' : 'bg-gray-900/40'}`}></div>
-                        
-                        <div className="flex items-center gap-1.5 font-bold text-gray-900">
-                          <span>{group.name}</span>
-                          {group.count && (
-                            <span className={`px-1.5 py-0.2 rounded text-[10px] font-bold ${isSelected ? 'bg-terracotta/20 text-terracotta' : 'bg-gray-900/10 text-gray-700'}`}>
-                              {group.count}
-                            </span>
-                          )}
-                        </div>
-
-                        {group.items && group.items.map((item, iIdx) => (
-                          <div key={iIdx} className={`relative border-l-2 pl-3 space-y-1.5 transition-colors ${isSelected ? 'border-terracotta/70' : 'border-gray-900/30'}`}>
-                            {/* Horizontal Sub-Branch Line */}
-                            <div className={`absolute -left-[2px] top-2.5 w-2.5 h-[1.5px] transition-colors ${isSelected ? 'bg-terracotta/70' : 'bg-gray-900/30'}`}></div>
-                            
-                            <div className="flex items-center gap-1.5 font-semibold text-gray-800">
-                              <span>{item.name}</span>
-                              {(item as any).count && (
-                                <span className="px-1 rounded bg-gray-900/10 text-[9px] text-gray-600">
-                                  {(item as any).count}
-                                </span>
-                              )}
-                            </div>
-
-                            {item.children && (
-                              <div className={`relative border-l-2 pl-3 space-y-1 text-[11px] transition-colors ${isSelected ? 'border-emerald-600' : 'border-emerald-600/40'}`}>
-                                {item.children.map((child, cIdx) => (
-                                  <div key={cIdx} className={`relative pl-1 flex items-center gap-1.5 transition-colors ${isSelected ? 'text-terracotta font-bold' : 'text-gray-800'}`}>
-                                    <div className={`absolute -left-3 top-2 w-2 h-[1px] ${isSelected ? 'bg-terracotta' : 'bg-emerald-600/40'}`}></div>
-                                    <span>• {child}</span>
-                                  </div>
-                                ))}
-                              </div>
+                    {/* Visual Tree Branch Connectors Sub-Tree */}
+                    <div className="space-y-3 pt-1 text-xs">
+                      {/* Render Grouped Sub-Skills */}
+                      {cat.subGroups && cat.subGroups.map((group, gIdx) => (
+                        <div key={gIdx} className={`relative border-l-2 pl-3 space-y-2 transition-colors ${isSelected ? 'border-terracotta' : 'border-gray-900/40'}`}>
+                          {/* Horizontal Branch Connector Line */}
+                          <div className={`absolute -left-[2px] top-2.5 w-2.5 h-[2px] transition-colors ${isSelected ? 'bg-terracotta' : 'bg-gray-900/40'}`}></div>
+                          
+                          <div className="flex items-center gap-1.5 font-bold text-gray-900">
+                            <span>{group.name}</span>
+                            {group.count && (
+                              <span className={`px-1.5 py-0.2 rounded text-[10px] font-bold ${isSelected ? 'bg-terracotta/20 text-terracotta' : 'bg-gray-900/10 text-gray-700'}`}>
+                                {group.count}
+                              </span>
                             )}
                           </div>
-                        ))}
-                      </div>
-                    ))}
 
-                    {/* Render Direct Skills with Branch Connector Lines */}
-                    {cat.directSkills && (
-                      <div className={`relative border-l-2 pl-3 space-y-1.5 transition-colors ${isSelected ? 'border-terracotta' : 'border-gray-900/40'}`}>
-                        {cat.directSkills.map((skill, dIdx) => (
-                          <div key={dIdx} className={`relative flex items-center gap-1.5 text-[11px] transition-colors ${isSelected ? 'text-terracotta font-bold' : 'text-gray-800 font-semibold'}`}>
-                            {/* Horizontal Branch Line */}
-                            <div className={`absolute -left-3 top-2 w-2.5 h-[1.5px] ${isSelected ? 'bg-terracotta' : 'bg-gray-900/40'}`}></div>
-                            <span>• {skill}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
+                          {group.items && group.items.map((item, iIdx) => (
+                            <div key={iIdx} className={`relative border-l-2 pl-3 space-y-1.5 transition-colors ${isSelected ? 'border-terracotta/70' : 'border-gray-900/30'}`}>
+                              {/* Horizontal Sub-Branch Line */}
+                              <div className={`absolute -left-[2px] top-2.5 w-2.5 h-[1.5px] transition-colors ${isSelected ? 'bg-terracotta/70' : 'bg-gray-900/30'}`}></div>
+                              
+                              <div className="flex items-center gap-1.5 font-semibold text-gray-800">
+                                <span>{item.name}</span>
+                                {(item as any).count && (
+                                  <span className="px-1 rounded bg-gray-900/10 text-[9px] text-gray-600">
+                                    {(item as any).count}
+                                  </span>
+                                )}
+                              </div>
 
+                              {item.children && (
+                                <div className={`relative border-l-2 pl-3 space-y-1 text-[11px] transition-colors ${isSelected ? 'border-emerald-600' : 'border-emerald-600/40'}`}>
+                                  {item.children.map((child, cIdx) => (
+                                    <div key={cIdx} className={`relative pl-1 flex items-center gap-1.5 transition-colors ${isSelected ? 'text-terracotta font-bold' : 'text-gray-800'}`}>
+                                      <div className={`absolute -left-3 top-2 w-2 h-[1px] ${isSelected ? 'bg-terracotta' : 'bg-emerald-600/40'}`}></div>
+                                      <span>• {child}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      ))}
+
+                      {/* Render Direct Skills with Branch Connector Lines */}
+                      {cat.directSkills && (
+                        <div className={`relative border-l-2 pl-3 space-y-1.5 transition-colors ${isSelected ? 'border-terracotta' : 'border-gray-900/40'}`}>
+                          {cat.directSkills.map((skill, dIdx) => (
+                            <div key={dIdx} className={`relative flex items-center gap-1.5 text-[11px] transition-colors ${isSelected ? 'text-terracotta font-bold' : 'text-gray-800 font-semibold'}`}>
+                              {/* Horizontal Branch Line */}
+                              <div className={`absolute -left-3 top-2 w-2.5 h-[1.5px] ${isSelected ? 'bg-terracotta' : 'bg-gray-900/40'}`}></div>
+                              <span>• {skill}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
 
         </div>

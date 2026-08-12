@@ -125,13 +125,13 @@ export default function Hero() {
           <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-end py-2">
             
             {/* Centered Composition Container */}
-            <div className="relative w-full max-w-[520px] sm:max-w-[580px] lg:max-w-[610px] min-h-[500px] sm:min-h-[560px] lg:min-h-[610px] flex items-center justify-center">
+            <div className="relative w-full max-w-[320px] xs:max-w-[360px] sm:max-w-[580px] lg:max-w-[610px] min-h-[380px] xs:min-h-[420px] sm:min-h-[560px] lg:min-h-[610px] flex items-center justify-center">
 
               {/* 1. Proportioned 3D Orbital System with Vertical Dotted Ring (Behind Profile) */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
                 
                 {/* Main 3D Orbit Container (Slightly larger as requested) */}
-                <div className="relative w-[480px] h-[480px] sm:w-[540px] sm:h-[540px] lg:w-[610px] lg:h-[610px] [transform:rotateX(42deg)_rotateY(-8deg)] transition-all">
+                <div className="relative w-[300px] h-[300px] xs:w-[340px] xs:h-[340px] sm:w-[540px] sm:h-[540px] lg:w-[610px] lg:h-[610px] [transform:rotateX(42deg)_rotateY(-8deg)] transition-all">
                   
                   {/* Layer 1: Primary Outer Ring (Compact Green Ring) */}
                   <svg 
@@ -176,7 +176,7 @@ export default function Hero() {
  
                 {/* Layer 3: Vertical Dotted Ring Container (Slightly larger as requested) */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="relative w-[450px] h-[450px] sm:w-[510px] sm:h-[510px] lg:w-[570px] lg:h-[570px] [transform:rotateX(72deg)_rotateY(-14deg)] transition-all">
+                  <div className="relative w-[280px] h-[280px] xs:w-[320px] xs:h-[320px] sm:w-[510px] sm:h-[510px] lg:w-[570px] lg:h-[570px] [transform:rotateX(72deg)_rotateY(-14deg)] transition-all">
                     <svg 
                       viewBox="0 0 500 500" 
                       className="absolute inset-0 w-full h-full animate-spin-clockwise"
@@ -203,7 +203,7 @@ export default function Hero() {
 
               {/* 2. ENLARGED Profile Avatar Circle (410px Desktop Diameter) */}
               <div 
-                className="relative z-10 w-80 h-80 sm:w-96 sm:h-96 lg:w-[410px] lg:h-[410px] rounded-full p-3 bg-[#c2d8c9] shadow-2xl flex items-center justify-center border-[6px] border-white animate-scale-in shrink-0"
+                className="relative z-10 w-48 h-48 xs:w-56 xs:h-56 sm:w-80 sm:h-80 lg:w-[410px] lg:h-[410px] rounded-full p-2 bg-[#c2d8c9] shadow-2xl flex items-center justify-center border-[4px] sm:border-[6px] border-white animate-scale-in shrink-0"
                 style={{ animationDelay: '0.3s' }}
               >
                 <Image
@@ -220,7 +220,7 @@ export default function Hero() {
               
               {/* Card 1: Clean Code (Upper-Left) */}
               <div 
-                className="absolute top-0 left-0 sm:-left-2 z-20 bg-white shadow-[0_12px_32px_rgba(0,0,0,0.07)] rounded-3xl p-3.5 sm:p-4 border border-black/5 animate-float-card min-w-[165px] sm:min-w-[180px]"
+                className="hidden md:block absolute top-0 left-0 sm:-left-2 z-20 bg-white shadow-[0_12px_32px_rgba(0,0,0,0.07)] rounded-3xl p-3.5 sm:p-4 border border-black/5 animate-float-card min-w-[165px] sm:min-w-[180px]"
                 style={{ animationDelay: '0s' }}
               >
                 <div className="w-9 h-9 rounded-2xl bg-[#fef2eb] flex items-center justify-center text-terracotta mb-2">
@@ -232,7 +232,7 @@ export default function Hero() {
 
               {/* Card 2: Available (Upper-Right) */}
               <div 
-                className="absolute top-4 right-0 sm:-right-2 z-20 bg-white shadow-[0_12px_32px_rgba(0,0,0,0.07)] rounded-3xl p-3.5 sm:p-4 border border-black/5 animate-float-card min-w-[175px] sm:min-w-[190px]"
+                className="hidden md:block absolute top-4 right-0 sm:-right-2 z-20 bg-white shadow-[0_12px_32px_rgba(0,0,0,0.07)] rounded-3xl p-3.5 sm:p-4 border border-black/5 animate-float-card min-w-[175px] sm:min-w-[190px]"
                 style={{ animationDelay: '1.5s' }}
               >
                 <div className="flex items-center gap-2 mb-1.5">
@@ -247,7 +247,7 @@ export default function Hero() {
 
               {/* Card 3: Problem Solver (Lower-Left) */}
               <div 
-                className="absolute bottom-2 left-0 sm:-left-2 z-20 bg-white shadow-[0_12px_32px_rgba(0,0,0,0.07)] rounded-3xl p-3.5 sm:p-4 border border-black/5 animate-float-card max-w-[190px] sm:max-w-[210px]"
+                className="hidden md:block absolute bottom-2 left-0 sm:-left-2 z-20 bg-white shadow-[0_12px_32px_rgba(0,0,0,0.07)] rounded-3xl p-3.5 sm:p-4 border border-black/5 animate-float-card max-w-[190px] sm:max-w-[210px]"
                 style={{ animationDelay: '3s' }}
               >
                 <div className="w-9 h-9 rounded-2xl bg-[#e8f5ec] flex items-center justify-center text-emerald-600 mb-2">
@@ -261,7 +261,7 @@ export default function Hero() {
 
               {/* Card 4: Building for Impact (Lower-Right) */}
               <div 
-                className="absolute bottom-0 right-0 sm:-right-2 z-20 bg-white shadow-[0_12px_32px_rgba(0,0,0,0.07)] rounded-3xl p-3.5 sm:p-4 border border-black/5 animate-float-card max-w-[200px] sm:max-w-[220px]"
+                className="hidden md:block absolute bottom-0 right-0 sm:-right-2 z-20 bg-white shadow-[0_12px_32px_rgba(0,0,0,0.07)] rounded-3xl p-3.5 sm:p-4 border border-black/5 animate-float-card max-w-[200px] sm:max-w-[220px]"
                 style={{ animationDelay: '4.5s' }}
               >
                 <div className="w-9 h-9 rounded-2xl bg-[#fef2eb] flex items-center justify-center text-terracotta mb-2">
