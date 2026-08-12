@@ -856,13 +856,14 @@ export function SkillsSection() {
   );
 }
 
-/* ==================== EXPERIENCE SECTION ==================== */
+/* ==================== EXPERIENCE SECTION (Vertical Timeline) ==================== */
 export function ExperienceSection() {
   const experiences = [
     {
       role: 'Video Editing & Marketing Officer',
       company: 'My Impact Meter',
       period: '2023 – Present',
+      isCurrent: true,
       points: [
         'Edited and produced high-quality videos for digital platforms.',
         'Managed social media accounts to enhance brand visibility.',
@@ -875,6 +876,7 @@ export function ExperienceSection() {
       role: 'Video Editor',
       company: 'Encosoft Technologies',
       period: '2022 – 2023',
+      isCurrent: false,
       points: [
         'Produced high-quality digital content and media assets for company operations.',
         'Collaborated with cross-functional teams in an IT environment, ensuring project timelines were met.'
@@ -883,47 +885,70 @@ export function ExperienceSection() {
   ];
 
   return (
-    <section id="experience" className="py-12 md:py-16">
+    <section id="experience" className="py-14 md:py-20 font-lato overflow-hidden">
       {/* Balanced Wide Container */}
       <div className="max-w-[1380px] mx-auto px-4 sm:px-8 lg:px-12">
-        <div className="mb-10 font-lato">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 text-xs font-bold uppercase tracking-wider mb-2">
-            Career Journey
+        
+        {/* Header (Matching Screenshot) */}
+        <div className="mb-12 font-lato">
+          <div className="text-emerald-700 text-xs font-black uppercase tracking-widest mb-2">
+            EXPERIENCE
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
-            Work Experience
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">
+            My <span className="text-terracotta">Journey</span>
           </h2>
         </div>
 
-        <div className="space-y-6 font-lato">
+        {/* Vertical Timeline Tree Container */}
+        <div className="relative border-l-2 border-gray-400/40 ml-3 sm:ml-6 lg:ml-8 pl-6 sm:pl-10 space-y-10">
           {experiences.map((exp, idx) => (
-            <div key={idx} className="p-6 sm:p-8 rounded-3xl card-theme bg-white border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.04)] space-y-4">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gray-100 pb-4">
-                <div className="space-y-1">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-xl bg-terracotta/10 text-terracotta">
-                      <Briefcase className="w-5 h-5" />
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900">{exp.role}</h3>
-                  </div>
-                  <p className="text-sm font-bold text-emerald-700 pl-10">{exp.company}</p>
-                </div>
-                <span className="shrink-0 px-4 py-1.5 rounded-full bg-terracotta/10 text-terracotta text-xs font-bold tracking-wide w-fit">
-                  {exp.period}
-                </span>
+            <div key={idx} className="relative group">
+              
+              {/* Node Circle Dot (Green for Present, Terracotta for Past - Matching Screenshot) */}
+              <div className={`absolute -left-[31px] sm:-left-[47px] top-1.5 w-6 h-6 rounded-full border-2 bg-white flex items-center justify-center transition-transform duration-300 group-hover:scale-125 z-10 ${
+                exp.isCurrent 
+                  ? 'border-emerald-600 shadow-[0_0_12px_rgba(56,161,89,0.5)]' 
+                  : 'border-terracotta shadow-[0_0_10px_rgba(200,90,40,0.4)]'
+              }`}>
+                <div className={`w-2.5 h-2.5 rounded-full ${exp.isCurrent ? 'bg-emerald-600 animate-pulse' : 'bg-terracotta'}`}></div>
               </div>
 
-              <ul className="space-y-2.5 pt-1">
-                {exp.points.map((pt, pIdx) => (
-                  <li key={pIdx} className="flex items-start gap-3 text-sm text-gray-700 font-medium leading-relaxed">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>{pt}</span>
-                  </li>
-                ))}
-              </ul>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-8 items-start">
+                
+                {/* Left Column: Date Range (Green Font - Matching Screenshot) */}
+                <div className="lg:col-span-3 pt-1">
+                  <span className="text-sm sm:text-base font-extrabold font-mono text-emerald-700 tracking-wide">
+                    {exp.period}
+                  </span>
+                </div>
+
+                {/* Right Column: Role, Company & Bullet Points */}
+                <div className="lg:col-span-9 space-y-3 p-6 sm:p-7 rounded-3xl bg-white/80 border border-black/5 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:border-terracotta/30 transition-all">
+                  <div>
+                    <h3 className="text-xl sm:text-2xl font-black text-gray-900 tracking-tight">
+                      {exp.role}
+                    </h3>
+                    <p className="text-sm font-bold text-gray-500 mt-0.5">
+                      {exp.company}
+                    </p>
+                  </div>
+
+                  <ul className="space-y-2 pt-2 border-t border-gray-100">
+                    {exp.points.map((pt, pIdx) => (
+                      <li key={pIdx} className="flex items-start gap-2.5 text-sm text-gray-700 font-medium leading-relaxed">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                        <span>{pt}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+              </div>
+
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );
