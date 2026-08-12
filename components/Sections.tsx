@@ -419,13 +419,33 @@ export function ProjectsSection() {
       }
     },
     {
-      id: 'analytics',
-      title: 'Enterprise Analytics Dashboard',
-      subtitle: 'High-Speed Operations Metrics',
-      description: 'High-speed metrics dashboard rendering complex data visualization, GraphQL query caching, and real-time enterprise monitoring.',
-      tags: ['TypeScript', 'Next.js 14', 'GraphQL', 'Tailwind CSS', 'Recharts'],
-      icon: <Layers className="w-6 h-6 text-terracotta" />,
-      caseStudy: null
+      id: 'codentra-portfolio',
+      title: 'CODENTRA — 3D Interactive WebGL & GSAP Showcase',
+      subtitle: 'Next-Gen 3D WebGL Graphics & Physics Experience',
+      description: 'High-performance 3D interactive web application engineered with React 18, Three.js, React Three Fiber, Rapier 3D Physics engine, and GSAP v3 timeline scroll animations with post-processing shaders.',
+      tags: ['Three.js', 'React Three Fiber', 'GSAP 3.12', 'Rapier 3D Physics', 'WebGL Shaders', 'TypeScript', 'Vite', 'Tailwind CSS'],
+      icon: <BrainCircuit className="w-6 h-6 text-terracotta" />,
+      caseStudy: {
+        title: 'CODENTRA 3D WebGL & GSAP Experience Case Study',
+        architecture: 'React 18 + Three.js + React Three Fiber + Rapier 3D Physics + GSAP v3 Timelines',
+        summary: 'CODENTRA is an interactive 3D WebGL digital experience combining real-time rigid body physics simulation, custom fragment shaders, and GSAP scroll-triggered animations for next-generation web interaction.',
+        highlights: [
+          'Real-Time 3D Physics Engine: Integrated @react-three/rapier rigid body dynamics for real-time gravity physics and interactive 3D object collisions.',
+          'WebGL Shaders & Post-Processing: Custom fragment shaders using @react-three/postprocessing for bloom, depth-of-field, and dynamic environment lighting.',
+          'GSAP v3 Timeline ScrollTriggers: Multi-stage scroll animations using GSAP v3 for smooth camera orbital transitions and pinned text reveals.',
+          'Declarative Scene Graph: React Three Fiber (@react-three/fiber) component graph with @react-three/drei helper utilities.',
+          '60FPS Asset Pipeline: Optimized GLTF/GLB 3D model compression and mesh instancing for fluid browser performance.'
+        ],
+        techStack: {
+          backend: ['Vite Build Pipeline', 'GLTF/GLB Asset Optimization', 'WebGL Canvas Renderer', 'Vercel Analytics Engine'],
+          frontend: ['React 18 Component Engine', 'Three.js & React Three Fiber', 'Rapier 3D Physics Engine', 'GSAP v3 & ScrollTrigger', 'TypeScript & Tailwind CSS']
+        },
+        endpoints: [
+          { method: 'GET', path: '/assets/3d/environment.gltf', desc: 'Serves compressed 3D GLTF mesh asset' },
+          { method: 'GET', path: '/assets/shaders/bloom.glsl', desc: 'Custom WebGL post-processing shader' },
+          { method: 'POST', path: '/api/v1/analytics/3d-event', desc: 'Logs interactive 3D scene user engagement metrics' }
+        ]
+      }
     }
   ];
 
@@ -614,7 +634,7 @@ export function ProjectsSection() {
             {/* Modal Footer */}
             <div className="p-4 px-6 bg-white border-t border-black/5 flex items-center justify-between shrink-0">
               <span className="text-xs font-mono text-gray-500">
-                Path: {activeModal.id === 'codentraa' ? 'C:\\Users\\Atif Mughal\\Downloads\\Codentra portal final' : activeModal.id === 'lockmaster' ? 'C:\\Users\\Atif Mughal\\Downloads\\lock_master-main' : 'Local Project Workspace'}
+                Path: {activeModal.id === 'codentraa' ? 'C:\\Users\\Atif Mughal\\Downloads\\Codentra portal final' : activeModal.id === 'lockmaster' ? 'C:\\Users\\Atif Mughal\\Downloads\\lock_master-main' : activeModal.id === 'codentra-portfolio' ? 'C:\\Users\\Atif Mughal\\Downloads\\codentra-portfolio-main' : 'Local Project Workspace'}
               </span>
               <button 
                 onClick={() => setActiveModal(null)}
