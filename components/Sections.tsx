@@ -16,7 +16,14 @@ import {
   Database,
   Workflow,
   Boxes,
-  FileText
+  FileText,
+  ShieldCheck,
+  Building2,
+  Server,
+  Zap,
+  Lock,
+  X,
+  ExternalLink
 } from 'lucide-react';
 
 /* ==================== TECHNOLOGIES SECTION (Placed above About) ==================== */
@@ -342,27 +349,58 @@ export function AboutSection() {
 
 /* ==================== PROJECTS SECTION ==================== */
 export function ProjectsSection() {
+  const [activeModal, setActiveModal] = useState<any | null>(null);
+
   const projects = [
     {
-      title: 'AI Productivity Suite',
-      description: 'Next-gen web application powered by LLMs, real-time collaboration, and modern UI design system.',
-      tags: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'OpenAI API'],
-      icon: <BrainCircuit className="w-6 h-6 text-terracotta" />,
-      link: '#'
+      id: 'codentraa',
+      title: 'CODENTRAA — Multi-Tenant Enterprise SaaS Portal',
+      subtitle: 'Full-Stack Enterprise Agency & Project Management Platform',
+      description: 'Enterprise-grade SaaS agency portal featuring Next.js 14 App Router and C# .NET 8 ASP.NET Core Clean Architecture (Onion Architecture) with Multi-Tenant Data Isolation, SignalR Real-Time WebSockets Sync, and RBAC Security.',
+      tags: ['Next.js 14', 'C# .NET 8', 'ASP.NET Core', 'EF Core 8', 'SignalR WebSockets', 'Clean Architecture', 'Multi-Tenancy', 'RBAC Security'],
+      icon: <Building2 className="w-6 h-6 text-terracotta" />,
+      caseStudy: {
+        title: 'CODENTRAA Enterprise SaaS Portal Case Study',
+        architecture: '6-Layer Clean / Onion Architecture (Domain, Application, Infrastructure, Api)',
+        summary: 'CODENTRAA is a multi-tenant Software-as-a-Service portal designed for modern agencies and enterprises. It guarantees cross-organization data security through automated EF Core interceptors and delivers real-time Kanban task management via SignalR WebSockets.',
+        highlights: [
+          'Multi-Tenant Data Isolation: Automated TenantDbContextInterceptor & EF Core Global Query Filters enforcing OrganizationId scoping on all DB queries.',
+          'Clean Architecture: Decoupled Domain, Application, Infrastructure, and API layers for total testability and zero-dependency domain models.',
+          'Real-Time SignalR Sync: WebSockets broadcasting live Kanban board updates and notifications across concurrent client browsers.',
+          'Role-Based Access Control (RBAC): 5 System Roles (Owner, Admin, Manager, Developer, Client) with fine-grained capability matrices.',
+          'SaaS Billing & Metering: Multi-tier subscriptions (Free, Pro $29/mo, Enterprise $99/mo) with automated usage limit enforcement meters.'
+        ],
+        techStack: {
+          backend: ['C# .NET 8 ASP.NET Core Web API', 'EF Core 8 (SQL Server / In-Memory DB)', 'ASP.NET Core SignalR WebSockets', 'JWT Bearer Token Rotation & SHA256 Password Hashing'],
+          frontend: ['Next.js 14 App Router & Server Components', 'TypeScript', 'Tailwind CSS', '@microsoft/signalr Connection Manager']
+        },
+        endpoints: [
+          { method: 'POST', path: '/api/v1/auth/register', desc: 'Registers User + Default Organization Workspace' },
+          { method: 'POST', path: '/api/v1/auth/login', desc: 'Authenticates user & returns signed JWT Bearer Token' },
+          { method: 'GET', path: '/api/v1/organizations', desc: 'Lists workspaces owned or joined by authenticated user' },
+          { method: 'GET', path: '/api/v1/projects', desc: 'Lists active tenant projects with RBAC check' },
+          { method: 'PATCH', path: '/api/v1/tasks/{id}/status', desc: 'Updates task status & broadcasts live SignalR WebSocket move' },
+          { method: 'GET', path: '/hubs/task', desc: 'ASP.NET Core SignalR WebSockets Hub endpoint' }
+        ]
+      }
     },
     {
+      id: 'ecommerce',
       title: 'E-Commerce Cloud Engine',
-      description: 'Scalable multi-tenant e-commerce platform built with microservices architecture and real-time analytics.',
-      tags: ['React', 'Node.js', 'PostgreSQL', 'Redis', 'Docker'],
+      subtitle: 'Microservices Retail Infrastructure',
+      description: 'Scalable multi-tenant e-commerce platform built with microservices architecture, real-time Redis caching, and automated inventory sync.',
+      tags: ['React', 'Node.js', 'PostgreSQL', 'Redis', 'Docker', 'AWS'],
       icon: <Globe className="w-6 h-6 text-emerald-600" />,
-      link: '#'
+      caseStudy: null
     },
     {
+      id: 'analytics',
       title: 'Enterprise Analytics Dashboard',
-      description: 'High-speed metrics dashboard rendering complex data visualization for enterprise operations.',
-      tags: ['TypeScript', 'Next.js', 'GraphQL', 'Tailwind'],
+      subtitle: 'High-Speed Operations Metrics',
+      description: 'High-speed metrics dashboard rendering complex data visualization, GraphQL query caching, and real-time enterprise monitoring.',
+      tags: ['TypeScript', 'Next.js 14', 'GraphQL', 'Tailwind CSS', 'Recharts'],
       icon: <Layers className="w-6 h-6 text-terracotta" />,
-      link: '#'
+      caseStudy: null
     }
   ];
 
@@ -383,43 +421,187 @@ export function ProjectsSection() {
           {projects.map((project, idx) => (
             <div 
               key={idx} 
-              className="p-6 rounded-3xl card-theme flex flex-col justify-between hover:scale-[1.02] transition-transform duration-300 group bg-white"
+              className="p-6 rounded-3xl card-theme flex flex-col justify-between hover:scale-[1.02] transition-transform duration-300 group bg-white border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.04)]"
             >
               <div>
                 <div className="p-3.5 rounded-2xl bg-black/5 w-fit mb-4 group-hover:bg-terracotta/10 transition-colors">
                   {project.icon}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-terracotta transition-colors">
+                <h3 className="text-xl font-bold text-gray-900 mb-1 group-hover:text-terracotta transition-colors">
                   {project.title}
                 </h3>
+                <p className="text-xs font-bold text-terracotta/90 mb-3 font-mono">
+                  {project.subtitle}
+                </p>
                 <p className="text-sm text-gray-600 leading-relaxed mb-6">
                   {project.description}
                 </p>
               </div>
 
               <div>
-                <div className="flex flex-wrap gap-2 mb-6">
+                <div className="flex flex-wrap gap-1.5 mb-6">
                   {project.tags.map((tag, tIdx) => (
                     <span 
                       key={tIdx} 
-                      className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-black/5 text-gray-600"
+                      className="px-2.5 py-1 text-[11px] font-semibold rounded-lg bg-black/5 text-gray-700"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
 
-                <a 
-                  href={project.link}
-                  className="inline-flex items-center gap-2 text-sm font-bold text-terracotta hover:underline"
+                <button 
+                  onClick={() => project.caseStudy ? setActiveModal(project) : null}
+                  className="inline-flex items-center gap-2 text-sm font-bold text-terracotta hover:underline cursor-pointer"
                 >
                   View Case Study <ArrowRight className="w-4 h-4" />
-                </a>
+                </button>
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Case Study Full Modal Overlay */}
+      {activeModal && activeModal.caseStudy && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm animate-fade-in font-lato overflow-y-auto">
+          <div className="relative w-full max-w-4xl max-h-[90vh] bg-[#fbfaf8] rounded-3xl shadow-2xl border border-black/10 overflow-hidden flex flex-col my-auto">
+            
+            {/* Modal Header Bar */}
+            <div className="p-6 bg-[#141816] text-white flex items-center justify-between border-b border-white/10 shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 rounded-xl bg-terracotta text-white">
+                  <Building2 className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-black tracking-wide text-white">
+                    {activeModal.caseStudy.title}
+                  </h3>
+                  <p className="text-xs text-gray-400 font-mono mt-0.5">
+                    Next.js 14 App Router + C# .NET 8 ASP.NET Core Clean Architecture
+                  </p>
+                </div>
+              </div>
+              <button 
+                onClick={() => setActiveModal(null)}
+                className="p-2 rounded-xl bg-white/10 text-gray-300 hover:text-white hover:bg-white/20 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Scrollable Body */}
+            <div className="p-6 sm:p-8 overflow-y-auto space-y-8 text-gray-800">
+              
+              {/* Section 1: Executive Summary */}
+              <div className="p-5 rounded-2xl bg-white border border-black/5 shadow-sm">
+                <h4 className="text-sm font-black uppercase text-terracotta tracking-wider mb-2 flex items-center gap-2">
+                  <Zap className="w-4 h-4 text-terracotta" /> Executive Overview
+                </h4>
+                <p className="text-sm leading-relaxed text-gray-700">
+                  {activeModal.caseStudy.summary}
+                </p>
+              </div>
+
+              {/* Section 2: Architectural Highlights */}
+              <div className="space-y-3">
+                <h4 className="text-sm font-black uppercase text-gray-900 tracking-wider flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600" /> Key Architectural Innovations
+                </h4>
+                <div className="grid grid-cols-1 gap-2.5">
+                  {activeModal.caseStudy.highlights.map((item: string, hIdx: number) => (
+                    <div key={hIdx} className="p-3.5 rounded-xl bg-white border border-black/5 flex items-start gap-3 shadow-xs">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <span className="text-xs sm:text-sm text-gray-700 font-medium leading-normal">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Section 3: Technology Specs Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="p-5 rounded-2xl bg-white border border-black/5 shadow-sm">
+                  <h5 className="text-xs font-black uppercase text-terracotta tracking-wider mb-3 flex items-center gap-2">
+                    <Server className="w-4 h-4" /> Backend (.NET 8 C# Clean Architecture)
+                  </h5>
+                  <ul className="space-y-2 text-xs font-mono text-gray-700">
+                    {activeModal.caseStudy.techStack.backend.map((b: string, bIdx: number) => (
+                      <li key={bIdx} className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-terracotta"></span>
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-white border border-black/5 shadow-sm">
+                  <h5 className="text-xs font-black uppercase text-emerald-700 tracking-wider mb-3 flex items-center gap-2">
+                    <Globe className="w-4 h-4" /> Frontend (Next.js 14 App Router)
+                  </h5>
+                  <ul className="space-y-2 text-xs font-mono text-gray-700">
+                    {activeModal.caseStudy.techStack.frontend.map((f: string, fIdx: number) => (
+                      <li key={fIdx} className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Section 4: REST API Specs Table */}
+              <div className="space-y-3">
+                <h4 className="text-sm font-black uppercase text-gray-900 tracking-wider flex items-center gap-2">
+                  <Lock className="w-4 h-4 text-terracotta" /> REST API & WebSockets Specs
+                </h4>
+                <div className="overflow-x-auto rounded-2xl border border-black/10 bg-white">
+                  <table className="w-full text-xs text-left font-mono">
+                    <thead className="bg-[#141816] text-gray-300 uppercase text-[10px] tracking-wider">
+                      <tr>
+                        <th className="px-4 py-3">Method</th>
+                        <th className="px-4 py-3">Endpoint URL</th>
+                        <th className="px-4 py-3">Description</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-100">
+                      {activeModal.caseStudy.endpoints.map((ep: any, eIdx: number) => (
+                        <tr key={eIdx} className="hover:bg-gray-50/80">
+                          <td className="px-4 py-2.5 font-bold">
+                            <span className={`px-2 py-0.5 rounded text-[10px] ${
+                              ep.method === 'POST' ? 'bg-emerald-100 text-emerald-800' :
+                              ep.method === 'GET' ? 'bg-blue-100 text-blue-800' :
+                              'bg-amber-100 text-amber-800'
+                            }`}>
+                              {ep.method}
+                            </span>
+                          </td>
+                          <td className="px-4 py-2.5 font-bold text-gray-900">{ep.path}</td>
+                          <td className="px-4 py-2.5 text-gray-600 font-lato">{ep.desc}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-4 px-6 bg-white border-t border-black/5 flex items-center justify-between shrink-0">
+              <span className="text-xs font-mono text-gray-500">
+                Path: C:\Users\Atif Mughal\Downloads\Codentra portal final
+              </span>
+              <button 
+                onClick={() => setActiveModal(null)}
+                className="px-5 py-2 rounded-xl bg-gray-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-terracotta transition-colors shadow-sm"
+              >
+                Close Case Study
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
     </section>
   );
 }
