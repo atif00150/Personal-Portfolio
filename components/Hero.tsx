@@ -98,13 +98,15 @@ export default function Hero() {
                     <Linkedin className="w-4 h-4" />
                   </a>
                   <a
-                    href="https://twitter.com"
+                    href="https://wa.me/"
                     target="_blank"
                     rel="noreferrer"
-                    className="p-2 rounded-full bg-white border border-black/5 shadow-xs text-gray-700 hover:text-terracotta hover:scale-110 transition-all"
-                    aria-label="Twitter"
+                    className="p-2 rounded-full bg-white border border-black/5 shadow-xs text-gray-700 hover:text-emerald-600 hover:scale-110 transition-all"
+                    aria-label="WhatsApp"
                   >
-                    <Twitter className="w-4 h-4" />
+                    <svg className="w-4 h-4 fill-current text-gray-700 hover:text-emerald-600 transition-colors" viewBox="0 0 24 24">
+                      <path d="M12.031 0c-6.627 0-12 5.373-12 12 0 2.159.572 4.216 1.657 6.012l-1.688 6.163 6.309-1.654c1.722.94 3.72 1.479 5.722 1.479 6.627 0 12-5.373 12-12s-5.373-12-12-12zm.008 22c-1.815 0-3.593-.486-5.143-1.405l-.369-.219-3.818 1.001 1.018-3.722-.241-.383c-1.013-1.614-1.547-3.484-1.547-5.393 0-5.457 4.437-9.894 9.894-9.894 5.456 0 9.893 4.437 9.893 9.894 0 5.458-4.437 9.894-9.893 9.894zm5.421-7.419c-.298-.149-1.761-.868-2.034-.967-.272-.099-.471-.149-.67.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.645.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.124-.272-.198-.57-.347z"/>
+                    </svg>
                   </a>
                   <a
                     href="https://mail.google.com/mail/?view=cm&fs=1&to=atifmughal00150@gmail.com&su=Project%20Inquiry%20%E2%80%94%20Muhammad%20Atif&body=Hi%20Atif%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project.%0A%0ABest%2C"
